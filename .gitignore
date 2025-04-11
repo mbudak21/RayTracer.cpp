@@ -1,3 +1,7 @@
+.vscode/
+CMakeLists.txt.OLD
+build/
+
 # Prerequisites
 *.d
 
