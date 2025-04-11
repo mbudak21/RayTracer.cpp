@@ -1,0 +1,7 @@
+/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles/libbmp.dir
+/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles/Core.dir
+/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles/RayTracer.dir
+/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles/RayTraceRunner.dir
+/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles/run.dir
+/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles/edit_cache.dir
+/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles/rebuild_cache.dir

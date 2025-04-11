@@ -1,0 +1,2 @@
+/usr/bin/ar qc libObjects.a CMakeFiles/Objects.dir/src/Sphere.cpp.o
+/usr/bin/ranlib libObjects.a

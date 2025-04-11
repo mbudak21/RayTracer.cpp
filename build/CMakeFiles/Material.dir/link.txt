@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMaterial.a CMakeFiles/Material.dir/src/Material.cpp.o
+/usr/bin/ranlib libMaterial.a

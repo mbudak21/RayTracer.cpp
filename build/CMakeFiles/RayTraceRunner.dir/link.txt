@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/RayTraceRunner.dir/link.d CMakeFiles/RayTraceRunner.dir/src/Main.cpp.o -o RayTraceRunner  libRayTracer.a libCore.a liblibbmp.a
