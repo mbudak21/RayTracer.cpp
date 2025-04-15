@@ -6,6 +6,7 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Light.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Plane.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Ray.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/RayTracer.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Scene.h \
@@ -479,7 +480,13 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/bits/floatn-common.h:
 
-/usr/include/c++/14.2.1/bits/functional_hash.h:
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/features.h:
+
+/usr/include/c++/14.2.1/cassert:
+
+/usr/include/bits/endianness.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h:
 
@@ -513,6 +520,18 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/bits/stdint-least.h:
 
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Plane.h:
+
+/usr/include/asm/bitsperlong.h:
+
+/usr/include/c++/14.2.1/bits/stl_raw_storage_iter.h:
+
+/usr/include/asm/posix_types_64.h:
+
+/usr/include/asm/posix_types.h:
+
+/usr/include/c++/14.2.1/bits/basic_ios.tcc:
+
 /usr/include/bits/locale.h:
 
 /usr/include/bits/atomic_wide_counter.h:
@@ -529,14 +548,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h:
 
-/usr/include/asm/posix_types.h:
-
-/usr/include/c++/14.2.1/bits/stl_raw_storage_iter.h:
-
-/usr/include/asm/posix_types_64.h:
-
-/usr/include/c++/14.2.1/bits/basic_ios.tcc:
-
 /usr/include/sched.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Light.h:
@@ -551,6 +562,10 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/c++/14.2.1/bits/locale_classes.h:
 
+/usr/include/bits/time64.h:
+
+/usr/include/bits/stdlib-float.h:
+
 /usr/include/c++/14.2.1/ext/atomicity.h:
 
 /usr/include/bits/types/__FILE.h:
@@ -560,6 +575,14 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/c++/14.2.1/bits/charconv.h:
 
 /usr/include/c++/14.2.1/bits/exception.h:
+
+/usr/include/c++/14.2.1/bits/unique_ptr.h:
+
+/usr/include/asm-generic/int-ll64.h:
+
+/usr/include/bits/mathcalls-macros.h:
+
+/usr/include/c++/14.2.1/bits/functional_hash.h:
 
 /usr/include/asm-generic/types.h:
 
@@ -572,14 +595,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/bits/fp-logb.h:
 
 /usr/include/asm-generic/errno.h:
-
-/usr/include/c++/14.2.1/bits/unique_ptr.h:
-
-/usr/include/bits/mathcalls-macros.h:
-
-/usr/include/asm-generic/int-ll64.h:
-
-/usr/include/asm/bitsperlong.h:
 
 /usr/include/stdc-predef.h:
 
@@ -606,18 +621,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/bits/typesizes.h:
 
 /usr/include/c++/14.2.1/bits/functexcept.h:
-
-/usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/include/features.h:
-
-/usr/include/c++/14.2.1/cassert:
-
-/usr/include/bits/endianness.h:
-
-/usr/include/bits/stdlib-float.h:
-
-/usr/include/bits/time64.h:
 
 /usr/include/wctype.h:
 

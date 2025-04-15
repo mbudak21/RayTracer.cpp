@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Core.dir/src/Material.cpp.o.d"
   "CMakeFiles/Core.dir/src/Object.cpp.o"
   "CMakeFiles/Core.dir/src/Object.cpp.o.d"
+  "CMakeFiles/Core.dir/src/Plane.cpp.o"
+  "CMakeFiles/Core.dir/src/Plane.cpp.o.d"
   "CMakeFiles/Core.dir/src/Ray.cpp.o"
   "CMakeFiles/Core.dir/src/Ray.cpp.o.d"
   "CMakeFiles/Core.dir/src/Scene.cpp.o"

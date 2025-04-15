@@ -325,6 +325,30 @@ src/Object.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Core.dir/build.make CMakeFiles/Core.dir/src/Object.cpp.s
 .PHONY : src/Object.cpp.s
 
+src/Plane.o: src/Plane.cpp.o
+.PHONY : src/Plane.o
+
+# target to build an object file
+src/Plane.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Core.dir/build.make CMakeFiles/Core.dir/src/Plane.cpp.o
+.PHONY : src/Plane.cpp.o
+
+src/Plane.i: src/Plane.cpp.i
+.PHONY : src/Plane.i
+
+# target to preprocess a source file
+src/Plane.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Core.dir/build.make CMakeFiles/Core.dir/src/Plane.cpp.i
+.PHONY : src/Plane.cpp.i
+
+src/Plane.s: src/Plane.cpp.s
+.PHONY : src/Plane.s
+
+# target to generate assembly for a file
+src/Plane.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Core.dir/build.make CMakeFiles/Core.dir/src/Plane.cpp.s
+.PHONY : src/Plane.cpp.s
+
 src/Ray.o: src/Ray.cpp.o
 .PHONY : src/Ray.o
 
@@ -452,6 +476,9 @@ help:
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"
+	@echo "... src/Plane.o"
+	@echo "... src/Plane.i"
+	@echo "... src/Plane.s"
 	@echo "... src/Ray.o"
 	@echo "... src/Ray.i"
 	@echo "... src/Ray.s"
