@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Core.dir/src/Scene.cpp.o.d"
   "CMakeFiles/Core.dir/src/Sphere.cpp.o"
   "CMakeFiles/Core.dir/src/Sphere.cpp.o.d"
+  "CMakeFiles/Core.dir/src/Triangle.cpp.o"
+  "CMakeFiles/Core.dir/src/Triangle.cpp.o.d"
   "libCore.a"
   "libCore.pdb"
 )

@@ -12,6 +12,7 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/RayTracer.h
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Scene.h
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Sphere.h
+ /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Triangle.h
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Vec3.h
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/raytrace_features.h
  /usr/include/alloca.h

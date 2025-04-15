@@ -11,6 +11,7 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/RayTracer.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Scene.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Sphere.h \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Triangle.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/raytrace_features.h \
   /usr/include/alloca.h \
@@ -400,16 +401,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/c++/14.2.1/bits/move.h:
 
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
-
-/usr/include/c++/14.2.1/stdexcept:
-
-/usr/include/bits/types/time_t.h:
-
-/usr/include/bits/mathcalls-helper-functions.h:
-
-/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/RayTracer.h:
-
 /usr/include/bits/types/struct_timeval.h:
 
 /usr/include/bits/stdint-uintn.h:
@@ -448,15 +439,15 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/bits/pthread_stack_min-dynamic.h:
 
-/usr/include/c++/14.2.1/bits/locale_classes.tcc:
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/RayTracer.h:
 
-/usr/include/c++/14.2.1/ctime:
+/usr/include/bits/mathcalls-helper-functions.h:
 
-/usr/include/bits/mathcalls-narrow.h:
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
 
-/usr/include/c++/14.2.1/bits/localefwd.h:
+/usr/include/c++/14.2.1/stdexcept:
 
-/usr/include/bits/types/timer_t.h:
+/usr/include/bits/types/time_t.h:
 
 /usr/include/c++/14.2.1/bits/stl_function.h:
 
@@ -488,18 +479,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/bits/endianness.h:
 
-/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h:
-
-/usr/include/bits/thread-shared-types.h:
-
-/usr/include/c++/14.2.1/ext/type_traits.h:
-
-/usr/include/asm/types.h:
-
-/usr/include/c++/14.2.1/initializer_list:
-
-/usr/include/bits/types/struct_FILE.h:
-
 /usr/include/bits/endian.h:
 
 /usr/include/c++/14.2.1/cmath:
@@ -507,6 +486,26 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/c++/14.2.1/bits/locale_facets.tcc:
 
 /usr/include/asm/errno.h:
+
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h:
+
+/usr/include/bits/thread-shared-types.h:
+
+/usr/include/c++/14.2.1/ctime:
+
+/usr/include/bits/mathcalls-narrow.h:
+
+/usr/include/c++/14.2.1/bits/localefwd.h:
+
+/usr/include/bits/types/timer_t.h:
+
+/usr/include/c++/14.2.1/bits/locale_classes.tcc:
+
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Triangle.h:
+
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
+
+/usr/include/bits/byteswap.h:
 
 /usr/include/c++/14.2.1/bits/exception_ptr.h:
 
@@ -558,10 +557,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Image.h:
 
-/usr/include/alloca.h:
-
-/usr/include/c++/14.2.1/bits/locale_classes.h:
-
 /usr/include/bits/time64.h:
 
 /usr/include/bits/stdlib-float.h:
@@ -575,6 +570,18 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/c++/14.2.1/bits/charconv.h:
 
 /usr/include/c++/14.2.1/bits/exception.h:
+
+/usr/include/c++/14.2.1/bits/locale_classes.h:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/14.2.1/ext/type_traits.h:
+
+/usr/include/asm/types.h:
+
+/usr/include/c++/14.2.1/initializer_list:
+
+/usr/include/bits/types/struct_FILE.h:
 
 /usr/include/c++/14.2.1/bits/unique_ptr.h:
 
@@ -607,10 +614,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/c++/14.2.1/bits/concept_check.h:
 
 /usr/include/assert.h:
-
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
-
-/usr/include/bits/byteswap.h:
 
 /usr/include/bits/struct_mutex.h:
 

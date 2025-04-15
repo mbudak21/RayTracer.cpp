@@ -11,6 +11,7 @@ CMakeFiles/RayTraceRunner.dir/src/Main.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/RayTracer.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Scene.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Sphere.h \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Triangle.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/raytrace_features.h \
   /usr/include/alloca.h \
@@ -323,10 +324,6 @@ libRayTracer.a:
 
 /usr/include/c++/14.2.1/bits/stl_uninitialized.h:
 
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
-
-/usr/include/bits/types.h:
-
 /usr/include/bits/endian.h:
 
 /usr/include/bits/types/time_t.h:
@@ -365,12 +362,6 @@ libRayTracer.a:
 
 /usr/include/c++/14.2.1/bits/stl_construct.h:
 
-/usr/include/bits/mathcalls-narrow.h:
-
-/usr/lib/Scrt1.o:
-
-/usr/include/bits/types/timer_t.h:
-
 /usr/include/c++/14.2.1/ext/aligned_buffer.h:
 
 /usr/include/bits/libc-header-start.h:
@@ -379,15 +370,29 @@ libRayTracer.a:
 
 /usr/include/bits/fp-logb.h:
 
-/usr/include/bits/stdint-least.h:
+/usr/include/c++/14.2.1/bits/stl_pair.h:
 
-/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Sphere.h:
+/usr/include/bits/mathcalls-narrow.h:
 
-/usr/include/alloca.h:
+/usr/lib/Scrt1.o:
 
-/usr/include/c++/14.2.1/ext/type_traits.h:
+/usr/include/bits/types/timer_t.h:
 
-/usr/include/asm/types.h:
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Triangle.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/include/bits/time64.h:
+
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Plane.h:
+
+/usr/include/asm/posix_types.h:
+
+/usr/include/c++/14.2.1/bits/postypes.h:
+
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
+
+/usr/include/bits/byteswap.h:
 
 /usr/include/c++/14.2.1/bits/exception_ptr.h:
 
@@ -395,15 +400,9 @@ libRayTracer.a:
 
 /usr/include/c++/14.2.1/backward/auto_ptr.h:
 
-/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/raytrace_features.h:
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Sphere.h:
 
-/usr/include/asm-generic/types.h:
-
-/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Plane.h:
-
-/usr/include/bits/stdlib-float.h:
-
-/usr/include/bits/time64.h:
+/usr/include/bits/stdint-least.h:
 
 /usr/include/asm/bitsperlong.h:
 
@@ -414,8 +413,6 @@ libRayTracer.a:
 /usr/include/sys/single_threaded.h:
 
 /usr/include/c++/14.2.1/bits/new_allocator.h:
-
-/usr/include/c++/14.2.1/bits/stl_pair.h:
 
 /usr/include/bits/mathcalls-helper-functions.h:
 
@@ -439,10 +436,6 @@ libRayTracer.a:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h:
 
-/usr/include/asm/posix_types.h:
-
-/usr/include/c++/14.2.1/bits/postypes.h:
-
 /usr/include/sched.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Light.h:
@@ -454,6 +447,16 @@ libRayTracer.a:
 /usr/include/c++/14.2.1/bits/shared_ptr_atomic.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Image.h:
+
+/usr/include/asm-generic/types.h:
+
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/raytrace_features.h:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/14.2.1/ext/type_traits.h:
+
+/usr/include/asm/types.h:
 
 /usr/include/c++/14.2.1/bits/unique_ptr.h:
 
@@ -477,10 +480,6 @@ libRayTracer.a:
 
 /usr/include/assert.h:
 
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
-
-/usr/include/bits/byteswap.h:
-
 /usr/include/bits/struct_mutex.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h:
@@ -502,6 +501,10 @@ libRayTracer.a:
 /usr/include/c++/14.2.1/cassert:
 
 /usr/include/bits/endianness.h:
+
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
+
+/usr/include/bits/types.h:
 
 /usr/include/bits/types/__locale_t.h:
 
@@ -561,9 +564,9 @@ libRayTracer.a:
 
 /usr/include/c++/14.2.1/bits/atomic_base.h:
 
-/usr/include/bits/fp-fast.h:
-
 /usr/include/c++/14.2.1/bits/stl_tempbuf.h:
+
+/usr/include/bits/fp-fast.h:
 
 /usr/include/c++/14.2.1/bits/atomic_lockfree_defines.h:
 
@@ -585,9 +588,9 @@ libRayTracer.a:
 
 /usr/include/c++/14.2.1/bits/exception_defines.h:
 
-/usr/include/c++/14.2.1/bits/stl_function.h:
-
 /usr/include/bits/math-vector.h:
+
+/usr/include/c++/14.2.1/bits/stl_function.h:
 
 /usr/include/c++/14.2.1/bits/range_access.h:
 

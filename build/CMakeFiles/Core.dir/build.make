@@ -170,10 +170,24 @@ CMakeFiles/Core.dir/src/Sphere.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Core.dir/src/Sphere.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Sphere.cpp" -o CMakeFiles/Core.dir/src/Sphere.cpp.s
 
+CMakeFiles/Core.dir/src/Triangle.cpp.o: CMakeFiles/Core.dir/flags.make
+CMakeFiles/Core.dir/src/Triangle.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Triangle.cpp
+CMakeFiles/Core.dir/src/Triangle.cpp.o: CMakeFiles/Core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Core.dir/src/Triangle.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Core.dir/src/Triangle.cpp.o -MF CMakeFiles/Core.dir/src/Triangle.cpp.o.d -o CMakeFiles/Core.dir/src/Triangle.cpp.o -c "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Triangle.cpp"
+
+CMakeFiles/Core.dir/src/Triangle.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Core.dir/src/Triangle.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Triangle.cpp" > CMakeFiles/Core.dir/src/Triangle.cpp.i
+
+CMakeFiles/Core.dir/src/Triangle.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Core.dir/src/Triangle.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Triangle.cpp" -o CMakeFiles/Core.dir/src/Triangle.cpp.s
+
 CMakeFiles/Core.dir/src/Plane.cpp.o: CMakeFiles/Core.dir/flags.make
 CMakeFiles/Core.dir/src/Plane.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Plane.cpp
 CMakeFiles/Core.dir/src/Plane.cpp.o: CMakeFiles/Core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Core.dir/src/Plane.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Core.dir/src/Plane.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Core.dir/src/Plane.cpp.o -MF CMakeFiles/Core.dir/src/Plane.cpp.o.d -o CMakeFiles/Core.dir/src/Plane.cpp.o -c "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Plane.cpp"
 
 CMakeFiles/Core.dir/src/Plane.cpp.i: cmake_force
@@ -193,6 +207,7 @@ Core_OBJECTS = \
 "CMakeFiles/Core.dir/src/Ray.cpp.o" \
 "CMakeFiles/Core.dir/src/Scene.cpp.o" \
 "CMakeFiles/Core.dir/src/Sphere.cpp.o" \
+"CMakeFiles/Core.dir/src/Triangle.cpp.o" \
 "CMakeFiles/Core.dir/src/Plane.cpp.o"
 
 # External object files for target Core
@@ -205,10 +220,11 @@ libCore.a: CMakeFiles/Core.dir/src/Object.cpp.o
 libCore.a: CMakeFiles/Core.dir/src/Ray.cpp.o
 libCore.a: CMakeFiles/Core.dir/src/Scene.cpp.o
 libCore.a: CMakeFiles/Core.dir/src/Sphere.cpp.o
+libCore.a: CMakeFiles/Core.dir/src/Triangle.cpp.o
 libCore.a: CMakeFiles/Core.dir/src/Plane.cpp.o
 libCore.a: CMakeFiles/Core.dir/build.make
 libCore.a: CMakeFiles/Core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library libCore.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX static library libCore.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/Core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Core.dir/link.txt --verbose=$(VERBOSE)
 

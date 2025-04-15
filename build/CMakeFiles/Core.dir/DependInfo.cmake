@@ -16,6 +16,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Ray.cpp" "CMakeFiles/Core.dir/src/Ray.cpp.o" "gcc" "CMakeFiles/Core.dir/src/Ray.cpp.o.d"
   "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Scene.cpp" "CMakeFiles/Core.dir/src/Scene.cpp.o" "gcc" "CMakeFiles/Core.dir/src/Scene.cpp.o.d"
   "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Sphere.cpp" "CMakeFiles/Core.dir/src/Sphere.cpp.o" "gcc" "CMakeFiles/Core.dir/src/Sphere.cpp.o.d"
+  "/home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/Triangle.cpp" "CMakeFiles/Core.dir/src/Triangle.cpp.o" "gcc" "CMakeFiles/Core.dir/src/Triangle.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

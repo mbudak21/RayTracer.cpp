@@ -1,2 +1,2 @@
-/usr/bin/ar qc libCore.a CMakeFiles/Core.dir/src/Image.cpp.o CMakeFiles/Core.dir/src/Light.cpp.o CMakeFiles/Core.dir/src/Material.cpp.o CMakeFiles/Core.dir/src/Object.cpp.o CMakeFiles/Core.dir/src/Ray.cpp.o CMakeFiles/Core.dir/src/Scene.cpp.o CMakeFiles/Core.dir/src/Sphere.cpp.o CMakeFiles/Core.dir/src/Plane.cpp.o
+/usr/bin/ar qc libCore.a CMakeFiles/Core.dir/src/Image.cpp.o CMakeFiles/Core.dir/src/Light.cpp.o CMakeFiles/Core.dir/src/Material.cpp.o CMakeFiles/Core.dir/src/Object.cpp.o CMakeFiles/Core.dir/src/Ray.cpp.o CMakeFiles/Core.dir/src/Scene.cpp.o CMakeFiles/Core.dir/src/Sphere.cpp.o CMakeFiles/Core.dir/src/Triangle.cpp.o CMakeFiles/Core.dir/src/Plane.cpp.o
 /usr/bin/ranlib libCore.a
