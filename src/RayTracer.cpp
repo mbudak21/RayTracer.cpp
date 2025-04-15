@@ -10,6 +10,7 @@ RayTracer::RayTracer(const int w, const int h) {
     this->image = new Image(w, h);
     this->bgColor = Vec3f(0.0f, 0.0f, 0.0f);
 }
+
 RayTracer::~RayTracer() {
     delete scene;
     delete image;
@@ -54,7 +55,7 @@ void RayTracer::fireRays() {
                 HitRec hit;
                 searchClosestHit(ray, hit);
         
-                Vec3f color = hit.anyHit ? computeLighting(hit, scene) : bgColor;
+                Vec3f color = hit.anyHit ? computeLighting(hit) : bgColor;
                 image->setPixel(x, y, color);
             }
         }
@@ -70,52 +71,95 @@ void RayTracer::fireRays() {
     for (auto& t : threads) t.join();
 }
 
-bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& normal, const Light* light, const Scene* scene) {
-    Vec3f lightDir = (light->pos - point);
-    float lightDistance = lightDir.len();
-    Ray shadowRay;
-    shadowRay.set_o(point + normal * 1e-4); // Avoid shadow acne
-    shadowRay.set_d(lightDir.normalize());
-
-    HitRec shadowHit;
-    searchClosestHit(shadowRay, shadowHit);
-    return shadowHit.anyHit && shadowHit.tHit < lightDistance;
+bool RayTracer::hitsAnything(const Ray& ray){
+    HitRec tempHit;
+    searchClosestHit(ray, tempHit);
+    return tempHit.anyHit;
 }
 
-Vec3f RayTracer::computeLighting(const HitRec& hit, const Scene* scene) {
-    Vec3f result(0, 0, 0);
-    Vec3f eye(0, 0, 0);
+bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& N, const Light* light){
+    // check if the given point is in the shadow of the given light
+    Ray shadowRay = Ray(point + N*0.001f, (light->pos - point).normalize());
+    return hitsAnything(shadowRay);
+}
+Vec3f RayTracer::computeLighting(const HitRec& hit) {
+    return computeLighting(hit, MAX_RECURSION_DEPTH);
+}
 
-    #if defined(AMBIENT_LIGHTING)
-        result += hit.mat.getColor() * AMBIENT_COEFF;
-    #endif
+
+Vec3f RayTracer::computeLighting(const HitRec& hit, int depth) {
+    if (depth > MAX_RECURSION_DEPTH) return bgColor;
+
+    Vec3f eye(0, 0, 0);
+    Vec3f result(0, 0, 0);
 
     Vec3f N = hit.n;
     N.normalize();
     Vec3f V = (eye - hit.p).normalize();
 
-    for (const auto& light : scene->lights) {
-        Vec3f L = (light->pos - hit.p).normalize();
+    float shadowWeight = 1.0f;
+    bool seenLight = false;
 
-        if (isInShadow(hit.p, hit.n, light.get(), scene)) continue;
+    #if defined(AMBIENT_LIGHTING)
+        Vec3f ambient = hit.mat.getColor() * AMBIENT_COEFF;
+        result += ambient;
+    #endif
+
+    for (const auto& light : scene->lights) {
+        #if defined(SHADOWS_BLACK) || defined(SHADOWS_AMBIENT)
+            bool inShadow = this->isInShadow(hit.p, N, light.get());
+            seenLight = inShadow ? seenLight : true;
+            
+            #ifdef SHADOWS_BLACK
+                shadowWeight = inShadow ? 0 : 1;
+            #else // SHADOWS_AMBIENT
+                shadowWeight = inShadow ? 0 : 1;
+                if (inShadow) continue;  // ambient-only already added; skip other lighting
+            #endif
+        #endif
+
+        Vec3f L = (light->pos - hit.p).normalize();
 
         #if defined(DIFFUSE_LIGHTING)
             float diff = std::max(0.0f, N.dot(L));
-            result += light->color * hit.mat.getColor() * diff * DIFFUSE_COEFF;
+            result += light->color * hit.mat.getColor() * diff * DIFFUSE_COEFF * shadowWeight;
         #endif
 
         #if defined(SPECULAR_LIGHTING)
             Vec3f R = (N * (2 * N.dot(L)) - L).normalize();
             float spec = pow(std::max(0.0f, R.dot(V)), hit.mat.shininess);
-            result += light->color * spec * hit.mat.specularColor * SPECULAR_COEFF;
+            result += light->color * spec * hit.mat.specularColor * SPECULAR_COEFF * shadowWeight;
         #endif
     }
 
-    return result;
+    #if defined(SHADOWS_BLACK)
+        if (!seenLight) { // is in pure shadow
+            result = Vec3f(0, 0, 0);
+        }
+    #endif
+
+    return Vec3f( // Clamp
+        std::min(1.0f, std::max(0.0f, result.x)),
+        std::min(1.0f, std::max(0.0f, result.y)),
+        std::min(1.0f, std::max(0.0f, result.z))
+    );
 }
 
+    // if (hit.mat.ref > 0.0f) {
+    //     Vec3f R = (V - N * 2.0f * V.dot(N)).normalize();
+    //     Ray reflectionRay(hit.p + N * 0.001f, R); // Offset a bit to avoid self-hit
+    //     HitRec reflectionHit;
+    //     searchClosestHit(reflectionRay, reflectionHit);
 
-
+    //     if (reflectionHit.anyHit) {
+    //         Vec3f reflectedColor = computeLighting(reflectionHit, depth + 1);
+    //         result = result * (1.0f - hit.mat.ref) +
+    //         reflectedColor * hit.mat.ref;
+    //     } else {
+    //         result = result * (1.0f - hit.mat.ref) +
+    //                 bgColor * hit.mat.ref;
+    //     }
+    // }
 
 
 // // Original fireRays function
@@ -147,8 +191,12 @@ void RayTracer::toBMP(const char* path) {
     this->image->toBMP(path);
 }
 
-void RayTracer::addSphere(std::shared_ptr<Sphere> sphere) {
-    this->scene->addSphere(sphere);
+// void RayTracer::addSphere(std::shared_ptr<Sphere> sphere) {
+//     this->scene->addSphere(sphere);
+// }
+
+void RayTracer::addObj(std::shared_ptr<Object> obj) {
+    this->scene->addObj(obj);
 }
 
 void RayTracer::addLight(std::shared_ptr<Light> light){

@@ -8,9 +8,11 @@ class Material {
         Vec3f color;
         float shininess;
         Vec3f specularColor;
+        float ref; // Reflectiveness
     public:
-        Material(Vec3f color); 
-        Material(); // Use a default color
+        Material(); // We need to have a dafult constructor for HitRec 
+        Material(Vec3f color);
+        Material(Vec3f color, float shininess, Vec3f specularColor, float ref); 
 
         void setColor(const Vec3f& vec);
 		const Vec3f& getColor() const;

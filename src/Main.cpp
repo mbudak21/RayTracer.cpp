@@ -6,36 +6,47 @@
 RayTracer* initTracer(int width, int height)
 {
 	RayTracer* rayTracer = new RayTracer(width, height);
+	Vec3f RED = Vec3f(1.0f, 0.0f, 0.0f);
+	Vec3f GREEN = Vec3f(0.0f, 1.0f, 0.0f);
+	Vec3f BLUE = Vec3f(0.0f, 0.0f, 1.0f);
+	Vec3f WHITE = Vec3f(1.0f, 1.0f, 1.0f);
+	Vec3f BLACK = Vec3f(0.0f, 0.0f, 0.0f);
 
 	// Materials
-	auto m1 = Material(Vec3f(1.0f, 0.0f, 0.0f));
-	m1.specularColor = Vec3f(1, 1, 1);
-	m1.shininess = 100;
-	auto m2 = Material(Vec3f(0.0f, 1.0f, 0.0f));
-	m2.specularColor = Vec3f(1, 1, 1);
-	m2.shininess = 100;
-	auto m3 = Material(Vec3f(1.0f, 1.0f, 0.2f));
-	m3.specularColor = Vec3f(1, 1, 1);
-	m3.shininess = 100;
+	auto red_shiny = Material(RED, 100, WHITE, 100);
+	auto green_shiny = Material(GREEN, 100, WHITE, 100);
+	auto white_shiny = Material(WHITE, 100, WHITE, 100);
+	auto mirror = Material(WHITE, 100, WHITE, 10000);
 
 	// Lights
-	auto light_1 = std::make_shared<Light>(Vec3f(100.0f, 15.0f, -5.0f), Vec3f(1.0f, 1.0f, 1.0f));
-	auto light_2 = std::make_shared<Light>(Vec3f(0.0f, -15.0f, +25.0f), Vec3f(1.0f, 0.2f, 1.0f));
+	auto light_1 = std::make_shared<Light>(Vec3f(-3.0f, 2.0f, -10.0f), Vec3f(1.0f, 1.0f, 1.0f));
+	auto light_2 = std::make_shared<Light>(Vec3f(+3.0f, 1.0f, -10.0f), Vec3f(1.0f, 1.0f, 1.0f));
 	
 	// Spheres
-	auto s1 = std::make_shared<Sphere>(Vec3f(0.0f, 0.0f, -25.0f), 1.0f, m1);
-	auto s2 = std::make_shared<Sphere>(Vec3f(2.0f, 0.0f, -25.0f), 1.0f, m2);
-	auto s3 = std::make_shared<Sphere>(Vec3f(4.0f, 0.0f, -25.0f), 1.0f, m3);
+	auto s1 = std::make_shared<Sphere>(Vec3f(0.0f, 0.0f, -25.0f), 1.0f, red_shiny);
+	auto s2 = std::make_shared<Sphere>(Vec3f(2.0f, 0.0f, -25.0f), 1.0f, green_shiny);
+	auto s3 = std::make_shared<Sphere>(Vec3f(4.0f, 0.0f, -25.0f), 1.0f, white_shiny);
+	auto s4 = std::make_shared<Sphere>(Vec3f(6.0f, 0.0f, -25.0f), 1.0f, green_shiny);
+	auto s5 = std::make_shared<Sphere>(Vec3f(8.0f, 0.0f, -25.0f), 1.0f, white_shiny);
+	auto s6 = std::make_shared<Sphere>(Vec3f(10.0f, 0.0f, -25.0f), 1.0f, green_shiny);
+
+	// Horizontal Plane
+	auto h = std::make_shared<Plane>(Vec3f(0.0f, -1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f).normalize(), white_shiny);
+
+	//auto s3 = std::make_shared<Sphere>(Vec3f(4.0f, 0.0f, -25.0f), 1.0f, m3);
 
 	
 	rayTracer->addLight(light_1);
 	rayTracer->addLight(light_2);
-	rayTracer->addSphere(s1);
-	rayTracer->addSphere(s2);
-	rayTracer->addSphere(s3);
+	rayTracer->addObj(s1);
+	rayTracer->addObj(s2);
+	// rayTracer->addObj(s3);
+	// rayTracer->addObj(s4);
+	// rayTracer->addObj(s5);
+	// rayTracer->addObj(s6);
+	rayTracer->addObj(h);
 
-	
-
+	// rayTracer->addSphere(s3);
 
 	return rayTracer;
 }

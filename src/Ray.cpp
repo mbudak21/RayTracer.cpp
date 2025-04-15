@@ -5,19 +5,19 @@ float Ray::rayEps = 0.001f;
 float Ray::tMax = 1e20f;
 
 
-//Default constructor: Set the start position of the eye rays to the origin
+// Default constructor: Set the start position of the eye rays to the origin
 Ray::Ray() : tClip(tMax), o(Vec3f(0.0f, 0.0f, 0.0f)) {}
-
-Ray::Ray(const Vec3f& o, const Vec3f& d, float tclip) {
-    set_o(o);
-    set_d(d);
-    this->tClip = tclip;
-}
 
 Ray::Ray(const Vec3f& o, const Vec3f& d) {
     set_o(o);
     set_d(d);
     this->tClip = tMax;
+}
+
+Ray::Ray(const Vec3f& o, const Vec3f& d, float tclip) {
+    set_o(o);
+    set_d(d);
+    this->tClip = tclip;
 }
 
 void Ray::epsMoveStartAlongSurfaceNormal(const Vec3f& n) {

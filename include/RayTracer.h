@@ -7,6 +7,7 @@
 #include "Sphere.h"
 #include "Material.h"
 #include "Light.h"
+#include "Plane.h"
 
 class RayTracer {
 private: 
@@ -22,10 +23,18 @@ public:
     void fireRays();
     void toPPM(const char* path);
     void toBMP(const char* path);
-    void addSphere(std::shared_ptr<Sphere> sphere);
+    // void addSphere(std::shared_ptr<Sphere> sphere);
+    void addObj(std::shared_ptr<Object> obj);
 	void addLight(std::shared_ptr<Light> light);
-    bool isInShadow(const Vec3f& point, const Vec3f& normal, const Light* light, const Scene* scene);
-    Vec3f computeLighting(const HitRec& hit, const Scene* scene);
+
+    bool hitsAnything(const Ray& ray);
+    bool isInShadow(const Vec3f& point, const Vec3f& N, const Light* light);
+    Vec3f computeLighting(const HitRec& hit);
+    Vec3f computeLighting(const HitRec& hit, int depth);
+
+
+
+    // bool isInShadow(const Vec3f& point, const Vec3f& normal, const Light* light, const Scene* scene);
 };
 
 #endif

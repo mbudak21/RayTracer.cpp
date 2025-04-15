@@ -19,7 +19,8 @@ public:
 	Scene(void);
 	~Scene();
 
-    void addSphere(std::shared_ptr<Sphere> sphere);
+    // void addSphere(std::shared_ptr<Sphere> sphere);
+	void addObj(std::shared_ptr<Object> obj);
 	void addLight(std::shared_ptr<Light> light);
 
 	void clear();

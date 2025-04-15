@@ -67,4 +67,5 @@ bool Vec3<T>::normalizeIf(void) {
 
 typedef Vec3<float> Vec3f;
 
+
 #endif

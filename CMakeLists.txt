@@ -30,6 +30,7 @@ add_library(Core
 
     src/Scene.cpp
     src/Sphere.cpp
+    src/Plane.cpp
 )
 
 target_link_libraries(Core libbmp)
