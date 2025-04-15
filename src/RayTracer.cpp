@@ -8,7 +8,7 @@
 RayTracer::RayTracer(const int w, const int h) {
     this->scene = new Scene();
     this->image = new Image(w, h);
-    this->bgColor = Vec3f(0.0f, 0.0f, 0.0f);
+    this->bgColor = Vec3f(0.01f, 0.01f, 0.3f);
 }
 
 RayTracer::~RayTracer() {
@@ -17,13 +17,14 @@ RayTracer::~RayTracer() {
 }
 
 void RayTracer::searchClosestHit(const Ray& ray, HitRec& hitRec) {
-    hitRec.anyHit = false;
+    hitRec = {}; // Reset hit record
     hitRec.tHit = ray.tClip;
-    for (int i = 0; i < this->scene->objects.size(); i++) {
-        HitRec tempHit;
-        tempHit.tHit = hitRec.tHit;
-        if(this->scene->objects[i]->hit(ray, hitRec) && tempHit.tHit < hitRec.tHit) {
+
+    for (const auto& object : scene->objects) {
+        HitRec tempHit{ .tHit = hitRec.tHit }; // Initialize with current max distance
+        if (object->hit(ray, tempHit) && tempHit.tHit < hitRec.tHit) {
             hitRec = tempHit;
+            hitRec.anyHit = true;
         }
     }
 }
@@ -55,7 +56,7 @@ void RayTracer::fireRays() {
                 HitRec hit;
                 searchClosestHit(ray, hit);
         
-                Vec3f color = hit.anyHit ? computeLighting(hit) : bgColor;
+                Vec3f color = hit.anyHit ? computeLighting(hit, getEyeRayDirection(x, y)) : bgColor;
                 image->setPixel(x, y, color);
             }
         }
@@ -79,23 +80,32 @@ bool RayTracer::hitsAnything(const Ray& ray){
 
 bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& N, const Light* light){
     // check if the given point is in the shadow of the given light
-    Ray shadowRay = Ray(point + N*0.001f, (light->pos - point).normalize());
-    return hitsAnything(shadowRay);
+    Vec3f shadowOrigin = point + N * 0.0001f;
+    Vec3f shadowDir = (light->pos - shadowOrigin).normalize();
+    Ray shadowRay = Ray(shadowOrigin, shadowDir);
+
+    HitRec shadowHit;
+    searchClosestHit(shadowRay, shadowHit);
+
+    // The line below makes sure hits after the light source are not counted.
+    return shadowHit.anyHit && shadowHit.tHit < (light->pos - point).len();
+    
 }
-Vec3f RayTracer::computeLighting(const HitRec& hit) {
-    return computeLighting(hit, MAX_RECURSION_DEPTH);
+Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin) {
+    
+    return computeLighting(hit, origin, 0);
 }
 
 
-Vec3f RayTracer::computeLighting(const HitRec& hit, int depth) {
+Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin, int depth) {
+    //fprintf(stdout, "\ndepth: %d", depth);
     if (depth > MAX_RECURSION_DEPTH) return bgColor;
 
-    Vec3f eye(0, 0, 0);
-    Vec3f result(0, 0, 0);
+    Vec3f result(0, 0, 0); // value to be returned
 
     Vec3f N = hit.n;
     N.normalize();
-    Vec3f V = (eye - hit.p).normalize();
+    Vec3f V = (origin - hit.p).normalize();
 
     float shadowWeight = 1.0f;
     bool seenLight = false;
@@ -118,6 +128,7 @@ Vec3f RayTracer::computeLighting(const HitRec& hit, int depth) {
             #endif
         #endif
 
+        // Direction from the hit point to the light source
         Vec3f L = (light->pos - hit.p).normalize();
 
         #if defined(DIFFUSE_LIGHTING)
@@ -132,34 +143,41 @@ Vec3f RayTracer::computeLighting(const HitRec& hit, int depth) {
         #endif
     }
 
+    #if defined(REFLECTIONS)
+    if (hit.mat.ref > 0.0f) {
+        // R = V - N(V.N)*2
+        Vec3f R = (V - (N*V.dot(N))*2).normalize();
+
+        Ray refRay(hit.p + N * 0.005f, -R); // Offset a bit to avoid self-hit
+        HitRec refHit;
+        searchClosestHit(refRay, refHit);
+
+        if (refHit.anyHit) {
+            // Shoot a ray from the hitPoint, in dir R
+            Vec3f refColor = computeLighting(refHit, hit.p + N * 0.005f, depth + 1);
+            result = result * (1.0f - hit.mat.ref) + refColor * hit.mat.ref;
+        } else {
+            result = result * (1.0f - hit.mat.ref) + bgColor * hit.mat.ref;
+        }
+    }
+    #endif
+
     #if defined(SHADOWS_BLACK)
         if (!seenLight) { // is in pure shadow
             result = Vec3f(0, 0, 0);
         }
     #endif
 
-    return Vec3f( // Clamp
-        std::min(1.0f, std::max(0.0f, result.x)),
-        std::min(1.0f, std::max(0.0f, result.y)),
-        std::min(1.0f, std::max(0.0f, result.z))
-    );
+    return result;
+
+    // return Vec3f( // Clamp
+    //     std::min(1.0f, std::max(0.0f, result.x)),
+    //     std::min(1.0f, std::max(0.0f, result.y)),
+    //     std::min(1.0f, std::max(0.0f, result.z))
+    // );
 }
 
-    // if (hit.mat.ref > 0.0f) {
-    //     Vec3f R = (V - N * 2.0f * V.dot(N)).normalize();
-    //     Ray reflectionRay(hit.p + N * 0.001f, R); // Offset a bit to avoid self-hit
-    //     HitRec reflectionHit;
-    //     searchClosestHit(reflectionRay, reflectionHit);
 
-    //     if (reflectionHit.anyHit) {
-    //         Vec3f reflectedColor = computeLighting(reflectionHit, depth + 1);
-    //         result = result * (1.0f - hit.mat.ref) +
-    //         reflectedColor * hit.mat.ref;
-    //     } else {
-    //         result = result * (1.0f - hit.mat.ref) +
-    //                 bgColor * hit.mat.ref;
-    //     }
-    // }
 
 
 // // Original fireRays function

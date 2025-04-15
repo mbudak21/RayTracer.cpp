@@ -1,5 +1,6 @@
 #include "Ray.h"
 #include <cmath>
+#include <cassert>
 
 float Ray::rayEps = 0.001f;
 float Ray::tMax = 1e20f;
@@ -45,7 +46,8 @@ const Vec3f& Ray::get_o() const {
 }
 
 void Ray::set_d(const Vec3f& vec) {
-    assert(("Ray direction must be normalized", abs(vec.len() - 1.0f) < FP_EPSILON));
+    // assert(("Ray direction must be normalized", abs(vec.len() - 1.0f) < FP_EPSILON));
+    assert((abs(vec.len() - 1.0f) >= FP_EPSILON, "Ray direction must be normalized."));
     this->d = vec;
 }
 

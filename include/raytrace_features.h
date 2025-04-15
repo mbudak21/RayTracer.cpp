@@ -3,10 +3,10 @@
 
 #define FP_EPSILON 1e-6f
 #define THREAD_COUNT 16
-#define AMBIENT_COEFF 0.3
-#define DIFFUSE_COEFF 0.4
-#define SPECULAR_COEFF 0.4
-#define MAX_RECURSION_DEPTH 5
+#define AMBIENT_COEFF 0.02
+#define DIFFUSE_COEFF 0.2
+#define SPECULAR_COEFF 0.3
+#define MAX_RECURSION_DEPTH 4
 
 
 /// To make it possible to easily reproduce different scenes from the assignment, 
@@ -32,7 +32,7 @@
 
 /// Then we define which scene we want to render
 /// Replace the SCENE_* value with the scene you want to render from the values above
-#define SCENE SCENE_SHADOWS_DARKNESS
+#define SCENE SCENE_REFLECTIONS
 
 // Finally, each scene will enable a set of features
 #if SCENE == SCENE_AMBIENT_ONLY
