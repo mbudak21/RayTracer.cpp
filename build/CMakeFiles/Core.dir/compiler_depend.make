@@ -222,6 +222,7 @@ CMakeFiles/Core.dir/src/Image.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ As
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 
 CMakeFiles/Core.dir/src/Light.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Light.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Light.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h \
   /usr/include/alloca.h \
@@ -295,6 +296,7 @@ CMakeFiles/Core.dir/src/Light.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ As
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 
 CMakeFiles/Core.dir/src/Material.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Material.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h \
   /usr/include/alloca.h \
@@ -343,14 +345,52 @@ CMakeFiles/Core.dir/src/Material.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\
   /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wordsize.h \
+  /usr/include/c++/14.2.1/backward/binders.h \
+  /usr/include/c++/14.2.1/bits/alloc_traits.h \
+  /usr/include/c++/14.2.1/bits/allocator.h \
+  /usr/include/c++/14.2.1/bits/concept_check.h \
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
+  /usr/include/c++/14.2.1/bits/exception.h \
+  /usr/include/c++/14.2.1/bits/exception_defines.h \
+  /usr/include/c++/14.2.1/bits/functexcept.h \
+  /usr/include/c++/14.2.1/bits/functional_hash.h \
+  /usr/include/c++/14.2.1/bits/hash_bytes.h \
+  /usr/include/c++/14.2.1/bits/invoke.h \
+  /usr/include/c++/14.2.1/bits/memoryfwd.h \
+  /usr/include/c++/14.2.1/bits/move.h \
+  /usr/include/c++/14.2.1/bits/new_allocator.h \
+  /usr/include/c++/14.2.1/bits/predefined_ops.h \
+  /usr/include/c++/14.2.1/bits/ptr_traits.h \
+  /usr/include/c++/14.2.1/bits/range_access.h \
+  /usr/include/c++/14.2.1/bits/refwrap.h \
   /usr/include/c++/14.2.1/bits/requires_hosted.h \
   /usr/include/c++/14.2.1/bits/std_abs.h \
+  /usr/include/c++/14.2.1/bits/stl_algobase.h \
+  /usr/include/c++/14.2.1/bits/stl_bvector.h \
+  /usr/include/c++/14.2.1/bits/stl_construct.h \
+  /usr/include/c++/14.2.1/bits/stl_function.h \
+  /usr/include/c++/14.2.1/bits/stl_iterator.h \
+  /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
+  /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
+  /usr/include/c++/14.2.1/bits/stl_vector.h \
+  /usr/include/c++/14.2.1/bits/utility.h \
+  /usr/include/c++/14.2.1/bits/vector.tcc \
   /usr/include/c++/14.2.1/bits/version.h \
   /usr/include/c++/14.2.1/cassert \
   /usr/include/c++/14.2.1/cmath \
+  /usr/include/c++/14.2.1/debug/assertions.h \
+  /usr/include/c++/14.2.1/debug/debug.h \
+  /usr/include/c++/14.2.1/ext/alloc_traits.h \
+  /usr/include/c++/14.2.1/ext/numeric_traits.h \
   /usr/include/c++/14.2.1/ext/type_traits.h \
+  /usr/include/c++/14.2.1/initializer_list \
   /usr/include/c++/14.2.1/math.h \
+  /usr/include/c++/14.2.1/new \
+  /usr/include/c++/14.2.1/type_traits \
+  /usr/include/c++/14.2.1/vector \
+  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -368,6 +408,7 @@ CMakeFiles/Core.dir/src/Material.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 
 CMakeFiles/Core.dir/src/Object.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Object.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Ray.h \
@@ -444,6 +485,7 @@ CMakeFiles/Core.dir/src/Object.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ A
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 
 CMakeFiles/Core.dir/src/Plane.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Plane.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Plane.h \
@@ -521,6 +563,7 @@ CMakeFiles/Core.dir/src/Plane.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ As
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 
 CMakeFiles/Core.dir/src/Ray.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Ray.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Ray.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h \
@@ -596,6 +639,7 @@ CMakeFiles/Core.dir/src/Ray.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assi
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 
 CMakeFiles/Core.dir/src/Scene.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Scene.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Light.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h \
@@ -781,6 +825,7 @@ CMakeFiles/Core.dir/src/Scene.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ As
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdint.h
 
 CMakeFiles/Core.dir/src/Sphere.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Sphere.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Ray.h \
@@ -858,6 +903,7 @@ CMakeFiles/Core.dir/src/Sphere.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ A
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 
 CMakeFiles/Core.dir/src/Triangle.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Triangle.cpp \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Ray.h \
@@ -967,8 +1013,6 @@ CMakeFiles/Core.dir/src/Triangle.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Plane.h:
 
-/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Plane.cpp:
-
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Ray.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Object.h:
@@ -976,6 +1020,10 @@ CMakeFiles/Core.dir/src/Triangle.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Material.cpp:
+
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Plane.cpp:
+
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/Light.cpp:
 

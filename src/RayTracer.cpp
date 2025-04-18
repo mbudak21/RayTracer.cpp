@@ -111,7 +111,7 @@ Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin, int dep
     bool seenLight = false;
 
     #if defined(AMBIENT_LIGHTING)
-        Vec3f ambient = hit.mat.getColor() * AMBIENT_COEFF;
+        Vec3f ambient = hit.mat.getAmbient();
         result += ambient;
     #endif
 
@@ -133,18 +133,18 @@ Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin, int dep
 
         #if defined(DIFFUSE_LIGHTING)
             float diff = std::max(0.0f, N.dot(L));
-            result += light->color * hit.mat.getColor() * diff * DIFFUSE_COEFF * shadowWeight;
+            result += light->getDiffuse() * hit.mat.getDiffuse() * diff * shadowWeight;
         #endif
 
         #if defined(SPECULAR_LIGHTING)
             Vec3f R = (N * (2 * N.dot(L)) - L).normalize();
             float spec = pow(std::max(0.0f, R.dot(V)), hit.mat.shininess);
-            result += light->color * spec * hit.mat.specularColor * SPECULAR_COEFF * shadowWeight;
+            result += light->getSpecular() * spec * hit.mat.getSpecular() * shadowWeight;
         #endif
     }
 
     #if defined(REFLECTIONS)
-    if (hit.mat.ref > 0.0f) {
+    if (hit.mat.getRef() > 0.0f) { 
         // R = V - N(V.N)*2
         Vec3f R = (V - (N*V.dot(N))*2).normalize();
 
@@ -168,13 +168,11 @@ Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin, int dep
         }
     #endif
 
-    return result;
-
-    // return Vec3f( // Clamp
-    //     std::min(1.0f, std::max(0.0f, result.x)),
-    //     std::min(1.0f, std::max(0.0f, result.y)),
-    //     std::min(1.0f, std::max(0.0f, result.z))
-    // );
+    return Vec3f( // Clamp
+        std::min(1.0f, std::max(0.0f, result.x)),
+        std::min(1.0f, std::max(0.0f, result.y)),
+        std::min(1.0f, std::max(0.0f, result.z))
+    );
 }
 
 

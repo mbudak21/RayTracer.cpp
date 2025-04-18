@@ -1,11 +1,19 @@
 #include "Light.h"
 #include <cassert>
 
-Light::Light(Vec3f pos, Vec3f color) : pos(pos) {
-        assert(color.x >= 0.0f && color.y >= 0.0f && color.z >= 0.0f); // positive
-        assert(color.x <= 1.0f && color.y <= 1.0f && color.z <= 1.0f); // less than 1
+// Vec3f ambC; // ambient color
+// Vec3f diffC; // diffuse color
+// Vec3f specC; // specular color
 
-        this->color = color;
-};
+Light::Light(Vec3f pos, Color color) : pos(pos), color(color) {};
 
-Light::Light(Vec3f pos) : color(Vec3f(1.0f, 1.0f, 1.0f)) { } // white as default
+
+const Vec3f& Light::getAmbient() const {
+    return this->color.ambient;
+  }
+  const Vec3f& Light::getDiffuse() const {
+    return this->color.diffuse;
+  }
+  const Vec3f& Light::getSpecular() const {
+    return this->color.specular;
+  }

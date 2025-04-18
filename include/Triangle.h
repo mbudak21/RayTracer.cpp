@@ -24,7 +24,7 @@ public:
     Triangle(const Vec3f& p1, const Vec3f& p2, const Vec3f& p3);
 	Triangle(const Vec3f& p1, const Vec3f& p2, const Vec3f& p3, const Material& material);
 
-    Vec3f getN() const;
+    Vec3f get_N() const;
 
 	bool hit(const Ray& r, HitRec& rec) const;
 	//void computeSurfaceHitFields(const Ray & r, HitRec & rec) const;

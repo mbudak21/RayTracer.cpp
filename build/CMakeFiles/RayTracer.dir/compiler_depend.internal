@@ -3,6 +3,7 @@
 
 CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/src/RayTracer.cpp
+ /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Color.h
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Image.h
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Light.h
  /home/gabechu/mdu/graphics/Ray Tracing Assignment/RayTracer-main/include/Material.h

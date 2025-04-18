@@ -7,9 +7,12 @@ Sphere::Sphere(const Vec3f & cen, float rad, const Material& material) : c(cen),
 	mat = material; // inherited from Object
 }
 
-Sphere::Sphere(const Vec3f & cen, float rad) : c(cen), r(rad) {
-	mat = Material(Vec3f(1.0f, 0.0f, 0.0f)); // default red
-}
+// Sphere::Sphere(const Vec3f & cen, float rad) : c(cen), r(rad) {
+
+// 	Color col = Color(Vec3(1.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f))
+
+// 	mat = Material(col); // default red
+// }
 
 bool Sphere::hit(const Ray & r, HitRec & rec) const {
 	// Circle
@@ -31,7 +34,7 @@ bool Sphere::hit(const Ray & r, HitRec & rec) const {
 
 	float sqrt_d = sqrt(delta);
 
-	float t = (-B - sqrt(delta)) / (2*A); // Closer solution
+	float t = (-B - sqrt_d) / (2*A); // Closer solution
 
     if (t < Ray::rayEps) {
         t = (-B + sqrt_d) / (2 * A); // Use the further solution

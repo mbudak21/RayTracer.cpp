@@ -2,20 +2,27 @@
 #define _MATERIAL_H_
 
 #include "Vec3.h"
+#include "Color.h"
+#include <cassert>
 
 class Material {
+    private:
+        Color color;
     public:
-        Vec3f color;
         float shininess;
-        Vec3f specularColor;
         float ref; // Reflectiveness
     public:
-        Material(); // We need to have a dafult constructor for HitRec 
-        Material(Vec3f color);
-        Material(Vec3f color, float shininess, Vec3f specularColor, float ref); 
+        Material(); // We need to have a dafult constructor for HitRec, apperently (cpp shenenigans)
+        Material(const Color& color, float shininess);
+        Material(const Color& color, float shininess, float ref); // For manual reflectivity assignment
 
-        void setColor(const Vec3f& vec);
-		const Vec3f& getColor() const;
+        //void setColor(const Color& color);
+
+		const Vec3f& getAmbient() const;
+		const Vec3f& getDiffuse() const;
+		const Vec3f& getSpecular() const;
+        const float getShine() const;
+        const float getRef() const;
     };
 
 #endif

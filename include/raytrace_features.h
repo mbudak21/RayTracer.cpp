@@ -1,12 +1,15 @@
 #ifndef _FEATURES_H_
 #define _FEATURES_H_
 
-#define FP_EPSILON 1e-6f
 #define THREAD_COUNT 16
-#define AMBIENT_COEFF 0.02
-#define DIFFUSE_COEFF 0.2
-#define SPECULAR_COEFF 0.3
-#define MAX_RECURSION_DEPTH 4
+// #define AMBIENT_COEFF 0.1
+// #define DIFFUSE_COEFF 0.1
+// #define SPECULAR_COEFF 0.3
+#define MAX_RECURSION_DEPTH 100
+// May unify the below into a single constant in the future
+#define FP_EPSILON 1e-6f
+#define TRIANGLE_FP_EPS 1e-6f
+#define PLANE_FP_EPS 1e-6f
 
 
 /// To make it possible to easily reproduce different scenes from the assignment, 

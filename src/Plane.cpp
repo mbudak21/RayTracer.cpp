@@ -5,13 +5,22 @@ Plane::~Plane() {};
 Plane::Plane(const Vec3f& point, const Vec3f& norm, const Material& mat) : p(point), n(norm), m(mat) {}
 
 bool Plane::hit(const Ray& ray, HitRec& hitRec) const {
-    // t = - (n · (O - P₀)) / (n · d)
-    float denom = n.dot(ray.get_d());
-    if (std::abs(denom) > 1e-6f) {  // avoid division by zero or near-zero
-        float t = (p - ray.get_o()).dot(n) / denom;
+    // p = o + t*d | Ray
+    // n.p = -D    | Plane
+    // t = -(D+n.o)/n.d
+    // t = (n.p-n.o)/n.d
+    // t = ((p-o).n)/n.d  | final equation to solve
+
+    Vec3f d = ray.get_d();
+    Vec3f o = ray.get_o();
+
+
+    float denom = n.dot(d);
+    if (abs(denom) > PLANE_FP_EPS) {  // CHeck if the ray and the plane are parallel
+        float t = (p - o).dot(n) / denom;
         if (t > 0.001f && t < hitRec.tHit) {
             hitRec.tHit = t;
-            hitRec.p = ray.get_o() + ray.get_d() * t;
+            hitRec.p = o + d * t;
             hitRec.n = n;
             hitRec.mat = this->m;
             hitRec.anyHit = true;
