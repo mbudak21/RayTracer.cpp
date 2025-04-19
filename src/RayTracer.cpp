@@ -56,7 +56,7 @@ void RayTracer::fireRays() {
                 HitRec hit;
                 searchClosestHit(ray, hit);
         
-                Vec3f color = hit.anyHit ? computeLighting(hit, getEyeRayDirection(x, y)) : bgColor;
+                Vec3f color = hit.anyHit ? computeLighting(ray, hit, getEyeRayDirection(x, y)) : bgColor;
                 image->setPixel(x, y, color);
             }
         }
@@ -91,13 +91,13 @@ bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& N, const Light* ligh
     return shadowHit.anyHit && shadowHit.tHit < (light->pos - point).len();
     
 }
-Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin) {
+Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin) {
     
-    return computeLighting(hit, origin, 0);
+    return computeLighting(ray, hit, origin, 0);
 }
 
 
-Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin, int depth) {
+Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, int depth) {
     //fprintf(stdout, "\ndepth: %d", depth);
     if (depth > MAX_RECURSION_DEPTH) return bgColor;
 
@@ -146,7 +146,18 @@ Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin, int dep
     #if defined(REFLECTIONS)
     if (hit.mat.getRef() > 0.0f) { 
         // R = V - N(V.N)*2
-        Vec3f R = (V - (N*V.dot(N))*2).normalize();
+        #if defined(FUZZY_NORMALS)
+            Vec3f fuzz = Vec3f(
+                (rand() % 2000) / 2000.0f - 1.0f,
+                (rand() % 2000) / 2000.0f - 1.0f,
+                (rand() % 2000) / 2000.0f - 1.0f
+            );
+            Vec3f R = (V - (N*V.dot(N))*2).normalize();
+            R = R + fuzz * hit.mat.fuzz;
+            R.normalize();
+        #else
+            Vec3f R = (V - (N*V.dot(N))*2).normalize();
+        #endif
 
         Ray refRay(hit.p + N * 0.005f, -R); // Offset a bit to avoid self-hit
         HitRec refHit;
@@ -154,12 +165,30 @@ Vec3f RayTracer::computeLighting(const HitRec& hit, const Vec3f& origin, int dep
 
         if (refHit.anyHit) {
             // Shoot a ray from the hitPoint, in dir R
-            Vec3f refColor = computeLighting(refHit, hit.p + N * 0.005f, depth + 1);
+            Vec3f refColor = computeLighting(ray, refHit, hit.p + N * 0.005f, depth + 1);
             result = result * (1.0f - hit.mat.ref) + refColor * hit.mat.ref;
         } else {
             result = result * (1.0f - hit.mat.ref) + bgColor * hit.mat.ref;
         }
     }
+    #endif
+
+    #if defined(REFRACTIONS)
+    if (hit.mat.getTrnsp() > 0.0f) {
+        Vec3f T = (V - (N*V.dot(N))*2).normalize();
+        Ray trRay(hit.p - N * 0.005f, T); // Offset a bit to avoid self-hit
+        HitRec trHit;
+        searchClosestHit(trRay, trHit);
+
+        if (trHit.anyHit) {
+            // Shoot a ray from the hitPoint, in dir T
+            Vec3f trColor = computeLighting(ray, trHit, hit.p - N * 0.005f, depth + 1);
+            result = result * (1.0f - hit.mat.trnsp) + trColor * hit.mat.trnsp;
+        } else {
+            result = result * (1.0f - hit.mat.trnsp) + bgColor * hit.mat.trnsp;
+        }
+    }
+    
     #endif
 
     #if defined(SHADOWS_BLACK)

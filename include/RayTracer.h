@@ -30,8 +30,8 @@ public:
 
     bool hitsAnything(const Ray& ray);
     bool isInShadow(const Vec3f& point, const Vec3f& N, const Light* light);
-    Vec3f computeLighting(const HitRec& hit, const Vec3f& origin);
-    Vec3f computeLighting(const HitRec& hit, const Vec3f& origin, int depth);
+    Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin);
+    Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, int depth);
 
 
 

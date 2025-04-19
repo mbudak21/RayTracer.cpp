@@ -11,6 +11,8 @@ class Material {
     public:
         float shininess;
         float ref; // Reflectiveness
+        float fuzz;
+        float trnsp; // Transparency
     public:
         Material(); // We need to have a dafult constructor for HitRec, apperently (cpp shenenigans)
         Material(const Color& color, float shininess);
@@ -23,6 +25,8 @@ class Material {
 		const Vec3f& getSpecular() const;
         const float getShine() const;
         const float getRef() const;
+        const float getFuzz() const;
+        const float getTrnsp() const;
     };
 
 #endif
