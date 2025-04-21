@@ -8,12 +8,12 @@
 
 
 struct HitRec {
-	float tHit;
+	float tHit; // t value at hit
 	int primIndex;
-	Vec3f p;
-	Vec3f n;
-	bool anyHit;
-	Material mat;
+	Vec3f p; // hit point
+	Vec3f n; // surface normal
+	bool anyHit; // if a hit has occured
+	Material mat; // material of the object hit
 };
 
 class Ray {

@@ -29,7 +29,7 @@ void RayTracer::searchClosestHit(const Ray& ray, HitRec& hitRec) {
     }
 }
 
-Vec3f RayTracer::getEyeRayDirection(int x, int y) {
+Vec3f RayTracer::getEyeRayDirection(float x, float y) {
     //Uses a fix camera looking along the negative z-axis
     static float z = -3.0f;
     static float sizeX = 4.0f; 
@@ -44,20 +44,14 @@ Vec3f RayTracer::getEyeRayDirection(int x, int y) {
 
 void RayTracer::fireRays() {
     int numThreads = THREAD_COUNT;
-    int height = image->getHeight();
     int width = image->getWidth();
+    int height = image->getHeight();
     std::vector<std::thread> threads;
 
     auto worker = [&](int startY, int endY) {
         for (int x = 0; x < width; ++x) {
             for (int y = startY; y < endY; ++y) {
-                Ray ray;
-                ray.set_d(getEyeRayDirection(x, y));
-                HitRec hit;
-                searchClosestHit(ray, hit);
-        
-                Vec3f color = hit.anyHit ? computeLighting(ray, hit, getEyeRayDirection(x, y)) : bgColor;
-                image->setPixel(x, y, color);
+                image->setPixel(x, y, samplePixel(x,y));
             }
         }
     };
@@ -72,10 +66,58 @@ void RayTracer::fireRays() {
     for (auto& t : threads) t.join();
 }
 
+Vec3f RayTracer::samplePixel(const int x, const int y) {
+    #if !defined(ANTI_ALIASING_CONST) || ANTI_ALIASING_CONST == 1
+        // Don't do anti aliasing
+            Ray ray;
+            ray.set_d(getEyeRayDirection(x, y));
+            HitRec hit;
+            searchClosestHit(ray, hit);
+        
+            return hit.anyHit ? computeLighting(ray, hit, ray.get_d()) : bgColor;
+    #endif
+
+    float delta = 1.0 / ANTI_ALIASING_CONST;
+    // printf("delta: %.2f\n", delta);
+
+    Vec3f color_sum = Vec3f(0, 0, 0);
+    for (int dx = 0; dx < ANTI_ALIASING_CONST; ++dx) {
+        for (int dy = 0; dy < ANTI_ALIASING_CONST; ++dy) {
+            Ray ray;
+            float sample_x = randomInRange(x+(delta*dx), x+(delta*(dx+1)));
+            float sample_y = randomInRange(y+(delta*dy), y+(delta*(dy+1)));
+            Vec3f sample_ray_dir = getEyeRayDirection(sample_x, sample_y);
+            ray.set_d(sample_ray_dir);
+            HitRec hit;
+            searchClosestHit(ray, hit);
+        
+            color_sum += hit.anyHit ? computeLighting(ray, hit, sample_ray_dir) : bgColor;
+
+            // printf("x, y = (%.2f, %.2f)\n", sample_x, sample_y);
+        }
+    }
+
+    color_sum.x /= (ANTI_ALIASING_CONST*ANTI_ALIASING_CONST); // Didn't wanna import pow()
+    color_sum.y /= (ANTI_ALIASING_CONST*ANTI_ALIASING_CONST);
+    color_sum.z /= (ANTI_ALIASING_CONST*ANTI_ALIASING_CONST);
+
+    return color_sum;
+}
+
+float RayTracer::randomInRange(float a, float b) {
+    return a + ((rand() % 10000) / 10000.0f) * (b - a);
+}
+
+
 bool RayTracer::hitsAnything(const Ray& ray){
-    HitRec tempHit;
-    searchClosestHit(ray, tempHit);
-    return tempHit.anyHit;
+    HitRec hit = ray.hitRec;
+
+    for (const auto& object : scene->objects) {
+        if (object->hit(ray, hit) && hit.tHit < ray.tMax) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& N, const Light* light){
@@ -89,10 +131,9 @@ bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& N, const Light* ligh
 
     // The line below makes sure hits after the light source are not counted.
     return shadowHit.anyHit && shadowHit.tHit < (light->pos - point).len();
-    
 }
-Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin) {
-    
+
+Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin) {    
     return computeLighting(ray, hit, origin, 0);
 }
 
@@ -173,6 +214,7 @@ Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f&
     }
     #endif
 
+
     #if defined(REFRACTIONS)
     if (hit.mat.getTrnsp() > 0.0f) {
         Vec3f T = (V - (N*V.dot(N))*2).normalize();
@@ -188,7 +230,6 @@ Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f&
             result = result * (1.0f - hit.mat.trnsp) + bgColor * hit.mat.trnsp;
         }
     }
-    
     #endif
 
     #if defined(SHADOWS_BLACK)
@@ -204,6 +245,10 @@ Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f&
     );
 }
 
+// Ray RayTracer::getRefrRay(){
+//     // Snells formula:
+//     // n_1*​sin(θ_1) ​= n_2*​sin(θ_2)
+// }
 
 
 

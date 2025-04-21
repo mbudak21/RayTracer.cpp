@@ -7,8 +7,6 @@
 // Use the exact scenes
 // fix hitsAnything and closestHit
 
-#define DEFAULT_WIDTH 1920
-#define DEFAULT_HEIGHT 1200
 
 RayTracer* initTracer(int width, int height) {
 	RayTracer* rayTracer = new RayTracer(width, height);

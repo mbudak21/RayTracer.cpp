@@ -1,11 +1,14 @@
 #ifndef _FEATURES_H_
 #define _FEATURES_H_
 
-#define THREAD_COUNT 16
+#define DEFAULT_WIDTH 1920
+#define DEFAULT_HEIGHT 1200
+#define THREAD_COUNT 32
 // #define AMBIENT_COEFF 0.1
 // #define DIFFUSE_COEFF 0.1
 // #define SPECULAR_COEFF 0.3
-#define MAX_RECURSION_DEPTH 1
+#define MAX_RECURSION_DEPTH 3
+#define ANTI_ALIASING_CONST 3
 // May unify the below into a single constant in the future
 #define FP_EPSILON 1e-6f
 #define TRIANGLE_FP_EPS 1e-6f

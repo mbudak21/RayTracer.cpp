@@ -10,15 +10,20 @@ Material::Material()
   )),
   shininess(16.0f),
   ref(0.0f),
-  fuzz(0.0f)
+  fuzz(0.0f),
+  refrIndex(1.0f)
 {};
 
-Material::Material(const Color& color, float shininess, float ref): color(color), shininess(shininess), ref(ref), fuzz(0.0f), trnsp(0.0f) {};
+Material::Material(const Color& color, float shininess, float ref): 
+  color(color), 
+  shininess(shininess), 
+  ref(ref), 
+  fuzz(0.0f), 
+  trnsp(0.0f),
+  refrIndex(1.0f) {};
 
-Material::Material(const Color& color, float shininess): color(color), fuzz(0.0f), trnsp(0.0f) {
-  this->shininess = shininess*128;
-  // using division by 128 because I think i should assume that shinyness values are OpenGL standard? Which is between 0 and 128.
-  // Also added *3 because the objects looked too matte, probably not a good idea but I couldn't come up with anything more sensical.
+Material::Material(const Color& color, float shininess): color(color), fuzz(0.0f), trnsp(0.0f), refrIndex(1.0f) {
+  this->shininess = shininess*128; // Multiplying by 128 as per the reference
   this->ref = (color.specular.x + color.specular.y + color.specular.z) * 2 / (this->shininess);
 }
 
@@ -42,4 +47,7 @@ const float Material::getFuzz() const {
 }
 const float Material::getTrnsp() const {
   return this->trnsp;
+}
+const float Material::getRefrIndex() const {
+  return this->refrIndex;
 }

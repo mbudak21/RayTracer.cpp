@@ -20,7 +20,7 @@ public:
     RayTracer(const int w, const int h);
     ~RayTracer();
     void searchClosestHit(const Ray & ray, HitRec & hitRec);
-	Vec3f getEyeRayDirection(int x, int y);
+	Vec3f getEyeRayDirection(float x, float y);
     void fireRays();
     void toPPM(const char* path);
     void toBMP(const char* path);
@@ -32,7 +32,8 @@ public:
     bool isInShadow(const Vec3f& point, const Vec3f& N, const Light* light);
     Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin);
     Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, int depth);
-
+    Vec3f samplePixel(const int x, const int y);
+    float randomInRange(float a, float b);
 
 
     // bool isInShadow(const Vec3f& point, const Vec3f& normal, const Light* light, const Scene* scene);
