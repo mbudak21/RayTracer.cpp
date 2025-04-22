@@ -31,7 +31,8 @@ public:
     bool hitsAnything(const Ray& ray);
     bool isInShadow(const Vec3f& point, const Vec3f& N, const Light* light);
     Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin);
-    Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, int depth);
+    Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, float refr_index, int depth);
+    Ray getRefrRay(float n1, float n2, const Vec3f& N, const Vec3f& IncomingRayDir, const Vec3f& hitPoint);
     Vec3f samplePixel(const int x, const int y);
     float randomInRange(float a, float b);
     void loadScene(int scene);

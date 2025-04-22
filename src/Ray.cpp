@@ -2,7 +2,7 @@
 #include <cmath>
 #include <cassert>
 
-float Ray::rayEps = 0.001f;
+float Ray::rayEps = FP_EPSILON;
 float Ray::tMax = 1e20f;
 
 

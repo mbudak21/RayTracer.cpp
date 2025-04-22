@@ -16,9 +16,9 @@ bool Plane::hit(const Ray& ray, HitRec& hitRec) const {
 
 
     float denom = n.dot(d);
-    if (abs(denom) > PLANE_FP_EPS) {  // CHeck if the ray and the plane are parallel
+    if (abs(denom) > FP_EPSILON) {  // CHeck if the ray and the plane are parallel
         float t = (p - o).dot(n) / denom;
-        if (t > 0.001f && t < hitRec.tHit) {
+        if (t > FP_EPSILON && t < hitRec.tHit) {
             hitRec.tHit = t;
             hitRec.p = o + d * t;
             hitRec.n = n;

@@ -24,9 +24,9 @@ bool Triangle::hit(const Ray& ray, HitRec& hitRec) const {
 
     float denom = N.dot(d);
     if (denom >= 0) return false; // backface, skip
-    if (abs(denom) > PLANE_FP_EPS) {  // Check if the ray and the plane are parallel
+    if (abs(denom) > FP_EPSILON) {  // Check if the ray and the plane are parallel
         float t = (p1 - o).dot(N) / denom;
-        if (t > 0.001f && t < hitRec.tHit) { // Hits the plane, and is in front of the ray
+        if (t > FP_EPSILON && t < hitRec.tHit) { // Hits the plane, and is in front of the ray
             Vec3f hitPoint = o + d * t; 
             // Inside-triangle check using barycentric coordinates
             Vec3f v0 = p2 - p1;
@@ -40,7 +40,7 @@ bool Triangle::hit(const Ray& ray, HitRec& hitRec) const {
             float dot12 = v1.dot(v2);
 
             float denom = dot00 * dot11 - dot01 * dot01;
-            if (fabs(denom) < 1e-8f) return false; // degenerate triangle
+            if (fabs(denom) < FP_EPSILON) return false; // degenerate triangle
 
             float invDenom = 1.0f / denom;
             float u = (dot11 * dot02 - dot01 * dot12) * invDenom;

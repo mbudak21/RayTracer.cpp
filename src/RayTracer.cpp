@@ -46,6 +46,11 @@ Vec3f RayTracer::getEyeRayDirection(float x, float y) {
 }
 
 void RayTracer::fireRays() {
+    /*
+    Each thread is responsible for rendering a horizontal strip of the image.
+    Example: If the image height is 400px, and there are 4 threads, each thread will render 100 pixels.
+    The last thread picks up any remaining pixels if the height is not divisible by the number of threads. (line 70 "int endY...")
+    */
     int numThreads = THREAD_COUNT;
     int width = image->getWidth();
     int height = image->getHeight();
@@ -63,10 +68,10 @@ void RayTracer::fireRays() {
     for (int i = 0; i < numThreads; ++i) {
         int startY = i * rowsPerThread;
         int endY = (i == numThreads - 1) ? height : startY + rowsPerThread;
-        threads.emplace_back(worker, startY, endY);
+        threads.emplace_back(worker, startY, endY); // Create a thread for each strip
     }
 
-    for (auto& t : threads) t.join();
+    for (auto& t : threads) t.join(); // Wait for all threads to finish
 }
 
 Vec3f RayTracer::samplePixel(const int x, const int y) {
@@ -125,7 +130,7 @@ bool RayTracer::hitsAnything(const Ray& ray){
 
 bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& N, const Light* light){
     // check if the given point is in the shadow of the given light
-    Vec3f shadowOrigin = point + N * 0.0001f;
+    Vec3f shadowOrigin = point + N * FP_EPSILON;
     Vec3f shadowDir = (light->pos - shadowOrigin).normalize();
     Ray shadowRay = Ray(shadowOrigin, shadowDir);
 
@@ -137,11 +142,11 @@ bool RayTracer::isInShadow(const Vec3f& point, const Vec3f& N, const Light* ligh
 }
 
 Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin) {    
-    return computeLighting(ray, hit, origin, 0);
+    return computeLighting(ray, hit, origin, 1.0f, 0); // Assume air in refr_index=1.0
 }
 
 
-Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, int depth) {
+Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, float refr_index, int depth) {
     //fprintf(stdout, "\ndepth: %d", depth);
     if (depth > MAX_RECURSION_DEPTH) return bgColor;
 
@@ -192,9 +197,9 @@ Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f&
         // R = V - N(V.N)*2
         #if defined(FUZZY_NORMALS)
             Vec3f fuzz = Vec3f(
-                (rand() % 2000) / 2000.0f - 1.0f,
-                (rand() % 2000) / 2000.0f - 1.0f,
-                (rand() % 2000) / 2000.0f - 1.0f
+                (rand() % 2000) / 2000.0f - 0.5f,
+                (rand() % 2000) / 2000.0f - 0.5f,
+                (rand() % 2000) / 2000.0f - 0.5f
             );
             Vec3f R = (V - (N*V.dot(N))*2).normalize();
             R = R + fuzz * hit.mat.fuzz;
@@ -203,13 +208,13 @@ Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f&
             Vec3f R = (V - (N*V.dot(N))*2).normalize();
         #endif
 
-        Ray refRay(hit.p + N * 0.005f, -R); // Offset a bit to avoid self-hit
+        Ray refRay(hit.p + N * FP_EPSILON, -R); // Offset a bit to avoid self-hit
         HitRec refHit;
         searchClosestHit(refRay, refHit);
 
         if (refHit.anyHit) {
             // Shoot a ray from the hitPoint, in dir R
-            Vec3f refColor = computeLighting(ray, refHit, hit.p + N * 0.005f, depth + 1);
+            Vec3f refColor = computeLighting(ray, refHit, hit.p + N * FP_EPSILON, hit.mat.getRefrIndex(), depth + 1);
             result = result * (1.0f - hit.mat.ref) + refColor * hit.mat.ref;
         } else {
             result = result * (1.0f - hit.mat.ref) + bgColor * hit.mat.ref;
@@ -220,14 +225,13 @@ Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f&
 
     #if defined(REFRACTIONS)
     if (hit.mat.getTrnsp() > 0.0f) {
-        Vec3f T = (V - (N*V.dot(N))*2).normalize();
-        Ray trRay(hit.p - N * 0.005f, T); // Offset a bit to avoid self-hit
+        Ray trRay = getRefrRay(refr_index, hit.mat.refrIndex, N, ray.get_d(), hit.p);
         HitRec trHit;
         searchClosestHit(trRay, trHit);
 
         if (trHit.anyHit) {
             // Shoot a ray from the hitPoint, in dir T
-            Vec3f trColor = computeLighting(ray, trHit, hit.p - N * 0.005f, depth + 1);
+            Vec3f trColor = computeLighting(trRay, trHit, hit.p - N * FP_EPSILON, hit.mat.refrIndex, depth + 1);
             result = result * (1.0f - hit.mat.trnsp) + trColor * hit.mat.trnsp;
         } else {
             result = result * (1.0f - hit.mat.trnsp) + bgColor * hit.mat.trnsp;
@@ -248,33 +252,35 @@ Vec3f RayTracer::computeLighting(const Ray& ray, const HitRec& hit, const Vec3f&
     );
 }
 
-// Ray RayTracer::getRefrRay(){
-//     // Snells formula:
-//     // n_1*​sin(θ_1) ​= n_2*​sin(θ_2)
-// }
+Ray RayTracer::getRefrRay(float n1, float n2, const Vec3f& N, const Vec3f& IncomingRayDir, const Vec3f& hitPoint) {
+    Vec3f I = IncomingRayDir;
+    Vec3f normal = N;
+
+    // Determine if we are entering or exiting
+    float cosI = I.dot(normal);
+    if (cosI > 0.0f) {
+        // We're inside the object, so invert the normal and swap indices
+        std::swap(n1, n2);
+        normal = -normal;
+        cosI = I.dot(normal); // recalculate after flipping normal
+    }
+
+    float eta = n1 / n2;
+    float cosThetaI = -cosI;
+    float sin2T = eta * eta * (1.0f - cosThetaI * cosThetaI);
+
+    if (sin2T > 1.0f) {
+        // Total internal reflection
+        Vec3f reflectDir = I - (normal * 2.0f * I.dot(normal));
+        return Ray(hitPoint + normal * FP_EPSILON, reflectDir.normalize());
+    }
+
+    float cosThetaT = sqrtf(1.0f - sin2T);
+    Vec3f refrDir = (I + (normal * (eta * cosThetaI - cosThetaT))) * eta;
+    return Ray(hitPoint - normal * FP_EPSILON, refrDir.normalize());
+}
 
 
-
-// // Original fireRays function
-// void RayTracer::fireRays() {
-//     Ray ray;
-
-//     for(int x = 0; x < this->image->getWidth(); x++) {
-//         for(int y = 0; y < this->image->getHeight(); y++) {
-//             ray.set_d(RayTracer::getEyeRayDirection(x, y));
-//             RayTracer::searchClosestHit(ray, ray.hitRec);
-//             if (ray.hitRec.anyHit) {
-//                 // Get the color of the object
-//                 Vec3f objColor = ray.hitRec.mat.getColor();
-                
-//                 //std::cout << objColor.x << " " << objColor.y << " " << objColor.z << std::endl;
-                
-//                 this->image->setPixel(x, y, objColor); } 
-//             else {
-//                 this->image->setPixel(x, y, this->bgColor); }
-//         }
-//     }
-// }
 
 void RayTracer::toPPM(const char* path) {
     this->image->toPPM(path);
@@ -283,10 +289,6 @@ void RayTracer::toPPM(const char* path) {
 void RayTracer::toBMP(const char* path) {
     this->image->toBMP(path);
 }
-
-// void RayTracer::addSphere(std::shared_ptr<Sphere> sphere) {
-//     this->scene->addSphere(sphere);
-// }
 
 void RayTracer::addObj(std::shared_ptr<Object> obj) {
     this->scene->addObj(obj);
@@ -410,7 +412,61 @@ void RayTracer::loadScene(int scene) {
         this->addObj(t4);
     }
 
-    if (scene == 999){
+    if (scene == 901){
+        // Red sphere on the left, green sphere on the right, blue plane as ground.
+        // Lights
+        auto light_1 = std::make_shared<Light>(Vec3f(-9.0f, 15.0f, -20.0f), ColorDefaults::White);
+        auto light_2 = std::make_shared<Light>(Vec3f(13.0f, 15.0f, -20.0f), ColorDefaults::White);
+
+        Color red(Vec3f(0.0f, 0.0f, 0.1f), Vec3f(0.9f, 0.0f, 0.0f), Vec3f(0.6f, 0.6f, 0.0f));
+        Material redC(red, 20.f/128.0f, 0.7f);
+        redC.fuzz = 0.05f;
+        redC.trnsp = 0.9f;
+        redC.refrIndex = 4.5f;
+
+        Color green(Vec3f(0.0f, 0.0f, 0.1f), Vec3f(0.0f, 0.9, 0.0f), Vec3f(0.6f, 0.6f, 0.0f));
+        Material greenC(green, 20.f, 0.7f);
+        greenC.fuzz = 0.05f;
+        greenC.trnsp = 0.0f;
+
+
+        auto s1 = std::make_shared<Sphere>(Vec3f(0.0f, 1.0f, -25.0f), 2.0f, redC);
+        auto s2 = std::make_shared<Sphere>(Vec3f(5.0f, 1.0f, -25.0f), 2.0f, greenC);
+        auto s3 = std::make_shared<Sphere>(Vec3f(-15.0f, 1.0f, -12.0f), 10.0f, MaterialDefaults::Gold);
+
+
+        auto h = std::make_shared<Plane>(Vec3f(0.0f, -1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f).normalize(), MaterialDefaults::Mirror);
+
+        
+        Vec3f A1(-6.0f, 13.0f, -28.0f); // Top left
+        Vec3f A2(4.0f, 13.0f, -28.0f); // Top right
+        Vec3f B(-1.0f, 13.0f, -28.0f); // top middle
+        Vec3f C(-1.0f, 3.0f, -28.0f); // bottom middle
+
+        auto t1 = std::make_shared<Triangle>(A1, C, B, redC);
+        auto t2 = std::make_shared<Triangle>(C, A2, B, greenC);
+
+        Vec3f Top(0.0f, 4.0f, -40.0f);
+        Vec3f BottomLeft(-3.0f, 0.0f, -45.0f);
+        Vec3f BottomRight(3.0f, 0.0f, -40.0f);
+        Vec3f BottomMiddle(0.0f, 0.0f, -35.0f);
+
+        auto t3 = std::make_shared<Triangle>(Top, BottomLeft, BottomMiddle, redC);
+        auto t4 = std::make_shared<Triangle>(BottomMiddle, BottomRight, Top, greenC);
+
+        this->addLight(light_1);
+        // this->addLight(light_2);
+        this->addObj(s1);
+        this->addObj(s2);
+        this->addObj(s3);
+        this->addObj(h);
+        this->addObj(t1);
+        this->addObj(t2);
+        this->addObj(t3);
+        this->addObj(t4);
+    }
+
+    if (scene == 902){
         // Lights
         auto light_1 = std::make_shared<Light>(Vec3f(-9.0f, 15.0f, -20.0f), ColorDefaults::White);
         auto light_2 = std::make_shared<Light>(Vec3f(13.0f, 15.0f, -20.0f), ColorDefaults::White);

@@ -10,9 +10,7 @@
 #define MAX_RECURSION_DEPTH 3
 #define ANTI_ALIASING_CONST 1
 // May unify the below into a single constant in the future
-#define FP_EPSILON 1e-6f
-#define TRIANGLE_FP_EPS 1e-6f
-#define PLANE_FP_EPS 1e-6f
+#define FP_EPSILON 1e-4f
 
 
 /// To make it possible to easily reproduce different scenes from the assignment, 
