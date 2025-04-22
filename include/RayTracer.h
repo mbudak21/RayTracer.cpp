@@ -34,6 +34,7 @@ public:
     Vec3f computeLighting(const Ray& ray, const HitRec& hit, const Vec3f& origin, int depth);
     Vec3f samplePixel(const int x, const int y);
     float randomInRange(float a, float b);
+    void loadScene(int scene);
 
 
     // bool isInShadow(const Vec3f& point, const Vec3f& normal, const Light* light, const Scene* scene);

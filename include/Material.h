@@ -14,7 +14,7 @@ class Material {
         float fuzz; // Fuzziness
         
         float trnsp; // Transparency
-        float refrIndex; // Refractive Index (1.0 for air, ~1.5 for glass)
+        float refrIndex; // Refractive Index 
     public:
         Material(); // We need to have a dafult constructor for HitRec, apperently (cpp shenenigans)
         Material(const Color& color, float shininess);

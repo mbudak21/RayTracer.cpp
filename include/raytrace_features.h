@@ -8,7 +8,7 @@
 // #define DIFFUSE_COEFF 0.1
 // #define SPECULAR_COEFF 0.3
 #define MAX_RECURSION_DEPTH 3
-#define ANTI_ALIASING_CONST 3
+#define ANTI_ALIASING_CONST 1
 // May unify the below into a single constant in the future
 #define FP_EPSILON 1e-6f
 #define TRIANGLE_FP_EPS 1e-6f
@@ -35,11 +35,13 @@
 #define SCENE_REFLECTIONS 211
 #define SCENE_TRIANGLES 220
 #define SCENE_PERTURB_NORMALS 230
-#define SCENE_FINAL 999
+#define SCENE_DEMO_1 901
+#define SCENE_DEMO_2 902
+
 
 /// Then we define which scene we want to render
 /// Replace the SCENE_* value with the scene you want to render from the values above
-#define SCENE SCENE_FINAL
+#define SCENE SCENE_DEMO_1
 
 // Finally, each scene will enable a set of features
 #if SCENE == SCENE_AMBIENT_ONLY
@@ -83,7 +85,8 @@
 #define REFLECTIONS
 #define TRIANGLES
 #define FUZZY_NORMALS
-#elif SCENE == SCENE_FINAL
+
+#elif SCENE == SCENE_DEMO_1 || SCENE == SCENE_DEMO_2
 #define AMBIENT_LIGHTING
 #define DIFFUSE_LIGHTING
 #define SPECULAR_LIGHTING
@@ -92,6 +95,7 @@
 #define TRIANGLES
 #define FUZZY_NORMALS
 #define REFRACTIONS
+#define ANTIALIASING
 
 #endif
 //Add Extras

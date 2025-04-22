@@ -16,15 +16,16 @@ Material::Material()
 
 Material::Material(const Color& color, float shininess, float ref): 
   color(color), 
-  shininess(shininess), 
-  ref(ref), 
+  shininess(shininess*128), 
+  ref(std::min(1.0f, std::max(0.0f, ref))), 
   fuzz(0.0f), 
   trnsp(0.0f),
   refrIndex(1.0f) {};
 
 Material::Material(const Color& color, float shininess): color(color), fuzz(0.0f), trnsp(0.0f), refrIndex(1.0f) {
   this->shininess = shininess*128; // Multiplying by 128 as per the reference
-  this->ref = (color.specular.x + color.specular.y + color.specular.z) * 2 / (this->shininess);
+  float ref = (color.specular.x + color.specular.y + color.specular.z) * this->shininess/(128.f*3.f);
+  this->ref = std::min(1.0f, std::max(0.0f, ref));
 }
 
 const Vec3f& Material::getAmbient() const {

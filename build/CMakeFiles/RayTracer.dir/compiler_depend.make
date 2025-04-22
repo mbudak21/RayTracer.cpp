@@ -3,6 +3,7 @@
 
 CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/src/RayTracer.cpp \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h \
+  /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Defaults.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Image.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Light.h \
   /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Material.h \
@@ -404,6 +405,8 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/c++/14.2.1/bits/locale_classes.h:
 
+/usr/include/c++/14.2.1/bits/istream.tcc:
+
 /usr/include/bits/types/struct_timeval.h:
 
 /usr/include/bits/stdint-uintn.h:
@@ -462,10 +465,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/bits/libc-header-start.h:
 
-/usr/include/c++/14.2.1/bits/stl_iterator.h:
-
-/usr/include/bits/iscanonical.h:
-
 /usr/include/bits/long-double.h:
 
 /usr/include/c++/14.2.1/bits/shared_ptr_base.h:
@@ -490,9 +489,9 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/asm/errno.h:
 
-/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h:
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
 
-/usr/include/bits/thread-shared-types.h:
+/usr/include/bits/byteswap.h:
 
 /usr/include/c++/14.2.1/ctime:
 
@@ -505,10 +504,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/c++/14.2.1/bits/locale_classes.tcc:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Triangle.h:
-
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
-
-/usr/include/bits/byteswap.h:
 
 /usr/include/c++/14.2.1/bits/exception_ptr.h:
 
@@ -536,6 +531,8 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 
 /usr/include/bits/struct_mutex.h:
 
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Defaults.h:
+
 /usr/include/c++/14.2.1/bits/stl_raw_storage_iter.h:
 
 /usr/include/asm/posix_types_64.h:
@@ -551,6 +548,14 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Color.h:
 
 /usr/include/bits/types/clockid_t.h:
+
+/usr/include/c++/14.2.1/bits/stl_iterator.h:
+
+/usr/include/bits/iscanonical.h:
+
+/home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Vec3.h:
+
+/usr/include/bits/thread-shared-types.h:
 
 /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h:
 
@@ -571,20 +576,6 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/bits/types/FILE.h:
 
 /home/gabechu/mdu/graphics/Ray\ Tracing\ Assignment/RayTracer-main/include/Image.h:
-
-/usr/include/bits/time64.h:
-
-/usr/include/bits/stdlib-float.h:
-
-/usr/include/c++/14.2.1/ext/atomicity.h:
-
-/usr/include/bits/types/__FILE.h:
-
-/usr/include/linux/posix_types.h:
-
-/usr/include/c++/14.2.1/bits/charconv.h:
-
-/usr/include/c++/14.2.1/bits/exception.h:
 
 /usr/include/alloca.h:
 
@@ -627,6 +618,20 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/c++/14.2.1/bits/concept_check.h:
 
 /usr/include/assert.h:
+
+/usr/include/bits/time64.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/include/c++/14.2.1/ext/atomicity.h:
+
+/usr/include/bits/types/__FILE.h:
+
+/usr/include/linux/posix_types.h:
+
+/usr/include/c++/14.2.1/bits/charconv.h:
+
+/usr/include/c++/14.2.1/bits/exception.h:
 
 /usr/include/wctype.h:
 
@@ -759,5 +764,3 @@ CMakeFiles/RayTracer.dir/src/RayTracer.cpp.o: /home/gabechu/mdu/graphics/Ray\ Tr
 /usr/include/c++/14.2.1/cstdint:
 
 /usr/include/c++/14.2.1/bits/invoke.h:
-
-/usr/include/c++/14.2.1/bits/istream.tcc:

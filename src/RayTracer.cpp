@@ -1,5 +1,7 @@
 #include "RayTracer.h"
 #include "raytrace_features.h"
+#include "Defaults.h"
+
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -8,7 +10,8 @@
 RayTracer::RayTracer(const int w, const int h) {
     this->scene = new Scene();
     this->image = new Image(w, h);
-    this->bgColor = Vec3f(0.01f, 0.01f, 0.3f);
+    // R:  40, G:  41, B:  45
+    this->bgColor = Vec3f(55.0f/256.0f, 56.0f/256.0f, 55.0f/256.0f);
 }
 
 RayTracer::~RayTracer() {
@@ -308,3 +311,174 @@ void RayTracer::addLight(std::shared_ptr<Light> light){
 //         }
 //     }
 // }
+
+
+void RayTracer::loadScene(int scene) {
+    printf("Loading scene %i. \n", scene);
+    if (scene == 131 || scene == 132 || scene == 133 || scene == 134 || scene == 140 || scene == 150) {
+        // Red sphere on the left, green sphere on the right, blue plane as ground.
+        Vec3f light_pos = Vec3f(-13.0f, 15.0f, -5.0f);
+        Vec3f red_sphere_pos = Vec3f(0.0f, 0.0f, -15.0f);
+        Vec3f green_sphere_pos = Vec3f(2.0f, -0.1f, -15.0f);
+
+        auto light_1 = std::make_shared<Light>(light_pos, ColorDefaults::White);
+        auto red_sphere = std::make_shared<Sphere>(red_sphere_pos, 1.0f, MaterialDefaults::RedRealistic);
+        auto green_sphere = std::make_shared<Sphere>(green_sphere_pos, 0.9f, MaterialDefaults::GreenRealistic);
+        auto plane = std::make_shared<Plane>(Vec3f(0.0f, -1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f).normalize(), MaterialDefaults::BlueRealistic);
+
+        this->addLight(light_1);
+        this->addObj(red_sphere);
+        this->addObj(plane);
+        this->addObj(green_sphere);
+    }
+    if (scene == 211){
+        // Red sphere on the left, green sphere on the right, blue plane as ground.
+
+        // Positions
+        Vec3f light_pos = Vec3f(-10.0f, 20.0f, -10.0f);
+        Vec3f red_sphere_pos = Vec3f(0.0f, 0.0f, -15.0f);
+        Vec3f green_sphere_pos = Vec3f(2.0f, -0.1f, -15.0f);
+
+        // Colors
+        const Color Red_col(Vec3f(0.1f, 0.0f, 0.0f), Vec3f(0.5f, 0.03f, 0.03f), Vec3f(0.3f, 0.3f, 0.0f));
+        const Color Green_col(Vec3f(0.0f, 0.1f, 0.0f), Vec3f(0.03f, 0.5f, 0.03f), Vec3f(0.3f, 0.3f, 0.0f));
+
+        // Materials
+        const Material Red_mat(Red_col, 0.2f);
+        const Material Green_mat(Green_col, 0.7f);
+
+        auto light_1 = std::make_shared<Light>(light_pos, ColorDefaults::White);
+        auto red_sphere = std::make_shared<Sphere>(red_sphere_pos, 1.0f, Red_mat);
+        auto green_sphere = std::make_shared<Sphere>(green_sphere_pos, 0.9f, Green_mat);
+        auto plane = std::make_shared<Plane>(Vec3f(0.0f, -1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f).normalize(), MaterialDefaults::Mirror);
+
+        this->addLight(light_1);
+        this->addObj(red_sphere);
+        this->addObj(plane);
+        this->addObj(green_sphere);
+    }
+    if (scene == 220 | scene == 230){
+        // Red sphere on the left, green sphere on the right, blue plane as ground.
+        // Lights
+        auto light_1 = std::make_shared<Light>(Vec3f(-9.0f, 15.0f, -20.0f), ColorDefaults::White);
+        auto light_2 = std::make_shared<Light>(Vec3f(13.0f, 15.0f, -20.0f), ColorDefaults::White);
+
+        Color red(Vec3f(0.0f, 0.0f, 0.1f), Vec3f(0.9f, 0.0f, 0.0f), Vec3f(0.6f, 0.6f, 0.0f));
+        Material redC(red, 20.f/128.0f, 0.7f);
+        redC.fuzz = 0.05f;
+        redC.trnsp = 0.5f;
+
+        Color green(Vec3f(0.0f, 0.0f, 0.1f), Vec3f(0.0f, 0.9, 0.0f), Vec3f(0.6f, 0.6f, 0.0f));
+        Material greenC(green, 20.f, 0.7f);
+        greenC.fuzz = 0.05f;
+        greenC.trnsp = 0.0f;
+
+
+        auto s1 = std::make_shared<Sphere>(Vec3f(0.0f, 1.0f, -25.0f), 2.0f, redC);
+        auto s2 = std::make_shared<Sphere>(Vec3f(5.0f, 1.0f, -25.0f), 2.0f, greenC);
+        auto s3 = std::make_shared<Sphere>(Vec3f(-15.0f, 1.0f, -12.0f), 10.0f, MaterialDefaults::Gold);
+
+
+        auto h = std::make_shared<Plane>(Vec3f(0.0f, -1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f).normalize(), MaterialDefaults::Mirror);
+
+        
+        Vec3f A1(-6.0f, 13.0f, -28.0f); // Top left
+        Vec3f A2(4.0f, 13.0f, -28.0f); // Top right
+        Vec3f B(-1.0f, 13.0f, -28.0f); // top middle
+        Vec3f C(-1.0f, 3.0f, -28.0f); // bottom middle
+
+        auto t1 = std::make_shared<Triangle>(A1, C, B, redC);
+        auto t2 = std::make_shared<Triangle>(C, A2, B, greenC);
+
+        Vec3f Top(0.0f, 4.0f, -40.0f);
+        Vec3f BottomLeft(-3.0f, 0.0f, -45.0f);
+        Vec3f BottomRight(3.0f, 0.0f, -40.0f);
+        Vec3f BottomMiddle(0.0f, 0.0f, -35.0f);
+
+        auto t3 = std::make_shared<Triangle>(Top, BottomLeft, BottomMiddle, redC);
+        auto t4 = std::make_shared<Triangle>(BottomMiddle, BottomRight, Top, greenC);
+
+        this->addLight(light_1);
+        // this->addLight(light_2);
+        this->addObj(s1);
+        this->addObj(s2);
+        this->addObj(s3);
+        this->addObj(h);
+        this->addObj(t1);
+        this->addObj(t2);
+        this->addObj(t3);
+        this->addObj(t4);
+    }
+
+    if (scene == 999){
+        // Lights
+        auto light_1 = std::make_shared<Light>(Vec3f(-9.0f, 15.0f, -20.0f), ColorDefaults::White);
+        auto light_2 = std::make_shared<Light>(Vec3f(13.0f, 15.0f, -20.0f), ColorDefaults::White);
+        
+        // Spheres
+        auto s1 = std::make_shared<Sphere>(Vec3f(-18.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::BlackFlat);
+        auto s2 = std::make_shared<Sphere>(Vec3f(-15.0f, 0.5f, -55.0f), 1.5f, MaterialDefaults::WhiteFlat);
+        auto s3 = std::make_shared<Sphere>(Vec3f(-12.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::Gold);
+        auto s4 = std::make_shared<Sphere>(Vec3f(-9.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::Copper);
+        auto s5 = std::make_shared<Sphere>(Vec3f(-6.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::Silver);
+        auto s6 = std::make_shared<Sphere>(Vec3f(-3.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::Obsidian);
+        auto s7 = std::make_shared<Sphere>(Vec3f(0.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::Ruby);
+        auto s8 = std::make_shared<Sphere>(Vec3f(3.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::Chrome);
+        auto s9 = std::make_shared<Sphere>(Vec3f(6.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::WhitePlastic);
+        auto s10 = std::make_shared<Sphere>(Vec3f(9.0f, 0.5f, -55.0f), 1.5f, MaterialDefaults::BlackPlastic);
+        auto s11 = std::make_shared<Sphere>(Vec3f(12.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::WhiteRubber);
+        auto s12 = std::make_shared<Sphere>(Vec3f(15.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::BlackRubber);
+        auto s13 = std::make_shared<Sphere>(Vec3f(18.0f, 1.0f, -55.0f), 1.5f, MaterialDefaults::CyanPlastic);
+
+        // Triangles
+        Vec3f A1(1.0f, 5.0f, -35.0f);
+        Vec3f B1(4.0f, 5.0f, -35.0f);
+        Vec3f C1(4.0f, 8.0f, -35.0f);
+
+        Vec3f A2(-4.0f, 5.0f, -35.0f);
+        Vec3f B2(-1.0f, 5.0f, -35.0f);
+        Vec3f C2(-1.0f, 8.0f, -35.0f);
+        auto t1 = std::make_shared<Triangle>(A1, B1, C1, MaterialDefaults::Chrome);
+        auto t2 = std::make_shared<Triangle>(A2, C2, B2, MaterialDefaults::Ruby);
+
+        // Horizontal Plane
+        auto h = std::make_shared<Plane>(Vec3f(0.0f, -1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f).normalize(), MaterialDefaults::Mirror);
+        
+        this->addLight(light_1);
+        this->addLight(light_2);
+        
+        this->addObj(s1);
+        this->addObj(s2);
+        this->addObj(s3);
+        this->addObj(s4);
+        this->addObj(s5);
+        this->addObj(s6);
+        this->addObj(s7);
+        this->addObj(s8);
+        this->addObj(s9);
+        this->addObj(s10);
+        this->addObj(s11);
+        this->addObj(s12);
+        this->addObj(s13);
+
+        this->addObj(t1);
+        this->addObj(t2);
+        this->addObj(h);
+
+        printf("s1: %.2f, %.2f\n", s1->getMaterial().getShine(), s1->getMaterial().getRef());
+        printf("s2: %.2f, %.2f\n", s2->getMaterial().getShine(), s2->getMaterial().getRef());
+        printf("s3: %.2f, %.2f\n", s3->getMaterial().getShine(), s3->getMaterial().getRef());
+        printf("s4: %.2f, %.2f\n", s4->getMaterial().getShine(), s4->getMaterial().getRef());
+        printf("s5: %.2f, %.2f\n", s5->getMaterial().getShine(), s5->getMaterial().getRef());
+        printf("s6: %.2f, %.2f\n", s6->getMaterial().getShine(), s6->getMaterial().getRef());
+        printf("s7: %.2f, %.2f\n", s7->getMaterial().getShine(), s7->getMaterial().getRef());
+        printf("s8: %.2f, %.2f\n", s8->getMaterial().getShine(), s8->getMaterial().getRef());
+
+        // printf("Ref: %.2f, %.2f\n", t1->getMaterial().getShine(), t1->getMaterial().getRef());
+        printf("Ref: %.2f, %.2f\n", h->getMaterial().getShine(), h->getMaterial().getRef());
+        
+
+        // rayTracer->addSphere(s3);
+    }
+
+}

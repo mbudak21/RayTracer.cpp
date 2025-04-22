@@ -8,6 +8,14 @@
 namespace ColorDefaults {
 	const Color White(Vec3f(1.0f, 1.0f, 1.0f), Vec3f(1.0f, 1.0f, 1.0f), Vec3f(1.0f, 1.0f, 1.0f));
 	const Color Black(Vec3f(0.0f, 0.0f, 0.0f), Vec3f(0.0f, 0.0f, 0.0f), Vec3f(0.0f, 0.0f, 0.0f));
+	const Color Red(Vec3f(1.0f, 0.0f, 0.0f), Vec3f(1.0f, 0.0f, 0.0f), Vec3f(1.0f, 0.0f, 0.0f));
+	const Color Green(Vec3f(0.0f, 1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f), Vec3f(0.0f, 1.0f, 0.0f));
+	const Color Blue(Vec3f(0.0f, 0.0f, 1.0f), Vec3f(0.0f, 0.0f, 1.0f), Vec3f(0.0f, 0.0f, 1.0f));
+
+	const Color RedRealistic(Vec3f(0.15f, 0.0f, 0.0f), Vec3f(0.7f, 0.0f, 0.0f), Vec3f(0.3f, 0.3f, 0.3f));
+	const Color GreenRealistic(Vec3f(0.0f, 0.15, 0.0f), Vec3f(0.0f, 0.7f, 0.0f), Vec3f(0.3f, 0.3f, 0.3f));
+	const Color BlueRealistic(Vec3f(0.0f, 0.0f, 0.15), Vec3f(0.0f, 0.0f, 0.7f), Vec3f(0.3f, 0.3f, 0.3f));
+
 	const Color Gold(Vec3f(0.24725f, 0.1995f, 0.0745f), Vec3f(0.75164f, 0.60648f, 0.22648f), Vec3f(0.628281f, 0.555802f, 0.366065f));
 	const Color Copper(Vec3f(0.19125f, 0.0735f, 0.0225f), Vec3f(0.7038f, 0.27048f, 0.0828f), Vec3f(0.256777f, 0.137622f, 0.086014f));
 	const Color Silver(Vec3f(0.19225f, 0.19225f, 0.19225f), Vec3f(0.50754f, 0.50754f, 0.50754f), Vec3f(0.508273f, 0.508273f, 0.508273f));
@@ -36,8 +44,18 @@ namespace ColorDefaults {
 
 namespace MaterialDefaults {
 	// Full flat 
-	const Material FlatBlack(ColorDefaults::Black, 0.0f);
-	const Material FlatWhite(ColorDefaults::White, 0.0f);
+	const Material BlackFlat(ColorDefaults::Black, 0.0f);
+	const Material WhiteFlat(ColorDefaults::White, 0.0f);
+	const Material RedFlat(ColorDefaults::Red, 0.0f);
+	const Material GreenFlat(ColorDefaults::Green, 0.0f);
+	const Material BlueFlat(ColorDefaults::Blue, 0.0f);
+
+	const Material RedRealistic(ColorDefaults::RedRealistic, 0.2f);
+	const Material GreenRealistic(ColorDefaults::GreenRealistic, 0.7f);
+	const Material BlueRealistic(ColorDefaults::BlueRealistic, 0.3f);
+
+
+
 	
 	// Metals
 	const Material Gold(ColorDefaults::Gold, 0.4f);
