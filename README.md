@@ -1,6 +1,7 @@
 # RayTracer.cpp
 
 ```
+mkdir build && \
 cd build && \
 make && \
 ./RayTraceRunner && \
