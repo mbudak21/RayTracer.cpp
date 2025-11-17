@@ -1,5 +1,9 @@
 # RayTracer.cpp
 
+This project is a C++ raytracer built with zero external dependencies. Every component, from vector linear algebra to geometric intersection algorithms, was implemented manually rather than using libraries. The engine supports global illumination features including recursive reflections, refractions (Snell's Law), and shadows. The pipeline uses multi-threading for performance and includes a custom material system with both Phong and Gouraud shading models.
+
+## Usage
+
 ```
 mkdir build && \
 cd build && \
